@@ -14,8 +14,7 @@ describe 'POST /events' do
       post "/groups/#{group.id}/events", params: { event: 
                                                   {title: 'Craft Academy',
                                                   description: 'Graduation Party',
-                                                  location: 'Stockholm',
-                                                  date_and_time: '09 Feb, 1pm',} }, headers: headers
+                                                  location: 'Stockholm'} }, headers: headers
 
     end
 

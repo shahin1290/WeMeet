@@ -21,21 +21,6 @@ ActiveRecord::Schema.define(version: 2019_02_04_200935) do
     t.datetime "updated_at", null: false
   end
 
-  create_table "delayed_jobs", force: :cascade do |t|
-    t.integer "priority", default: 0, null: false
-    t.integer "attempts", default: 0, null: false
-    t.text "handler", null: false
-    t.text "last_error"
-    t.datetime "run_at"
-    t.datetime "locked_at"
-    t.datetime "failed_at"
-    t.string "locked_by"
-    t.string "queue"
-    t.datetime "created_at"
-    t.datetime "updated_at"
-    t.index ["priority", "run_at"], name: "delayed_jobs_priority"
-  end
-
   create_table "events", force: :cascade do |t|
     t.string "title"
     t.datetime "created_at", null: false
@@ -44,7 +29,6 @@ ActiveRecord::Schema.define(version: 2019_02_04_200935) do
     t.date "date"
     t.text "description"
     t.string "location"
-    t.string "date_and_time"
     t.index ["group_id"], name: "index_events_on_group_id"
   end
 
