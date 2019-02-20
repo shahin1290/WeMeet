@@ -1,6 +1,7 @@
 import { combineReducers } from 'redux'
+import eventsReducer from './eventsReducer'
 
 
 export default combineReducers({
-  replaceMe: () => 'Hi There!'
+  events: eventsReducer
 });
