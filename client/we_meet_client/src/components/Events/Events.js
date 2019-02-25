@@ -1,6 +1,6 @@
 import React, { Component } from 'react';
 import { connect } from 'react-redux';
-import { fetchEvents } from '../../actions'
+import { fetchEvents } from '../../actions/eventsAction'
 import styled from 'styled-components';
 
 
