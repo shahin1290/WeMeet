@@ -1,5 +1,7 @@
 import React, { Component } from 'react';
 import axios from "axios";
+import './Signup.css'
+
 class Signup extends Component {
 
   handleSignup = async(e) => {

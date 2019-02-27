@@ -4,7 +4,7 @@ import { Switch, Route, withRouter } from 'react-router-dom'
 import Events from './components/Events/Events';
 import HomePage from './components/HomePage';
 import Login from './components/Login';
-import Signup from './components/Signup';
+import Signup from './components/signup/Signup';
 import NavigationBar from './components/navbar/NavigationBar'
 
 
