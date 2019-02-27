@@ -17,26 +17,6 @@ class Signup extends Component {
 
     console.log(response);
   }
-
-    // fetch('http://localhost:3000/auth/', {
-    //   method: 'POST',
-    //   headers: {
-    //     'Accept': 'application/json',
-    //     'Content-Type': 'application/json',
-    //   },
-    //   body: JSON.stringify({
-    //     email: this.email.value,
-    //     password: this.password.value,
-    //     password_confirmation: this.password_confirmation.value
-    //   })
-    // }).then(response => response.json())
-    // .then((data) => {
-    //   console.log(data);
-    //   // this.props.history.push('/')
-    // })
-    // .catch((err)=>console.log(err))
-  
-
   render() {
     return (
       <div>
