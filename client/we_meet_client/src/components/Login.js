@@ -1,6 +1,20 @@
 import React, { Component } from 'react';
 import axios from "axios";
+import FormControl  from "@material-ui/core/FormControl";
+import  InputLabel  from "@material-ui/core/InputLabel";
+import  Input  from "@material-ui/core/Input";
+import  Button  from "@material-ui/core/Button";
+
+
 class Login extends Component {
+  state = {
+    email: '',
+    password: ''
+  }
+
+  onChange = (e) => {
+    this.setState({ [e.target.name]: e.target.value })
+  }
 
   handleLogin = async(e) => {
     e.preventDefault();
@@ -14,8 +28,8 @@ class Login extends Component {
     }
 
     let response = await axios.post('http://localhost:3000/auth/sign_in', { 
-                          email: this.email.value, 
-                          password: this.password.value 
+                          email: this.state.email, 
+                          password: this.state.password 
                         }, { headers: credentials })
 
     console.log(response);
@@ -23,11 +37,30 @@ class Login extends Component {
 
   render() {
     return (
-      <div>
-        <form onSubmit={this.handleLogin}>
-          <input name="email" ref={(input) => this.email = input}/>
-          <input name="password" type="password" ref={(input) => this.password = input}/>
-          <input type="submit"/>
+      <div
+        style={{
+          display: "flex",
+          justifyContent: "center",
+          margin: 20,
+          padding: 20
+        }}
+      >
+        <form style={{ width: "35%" }}>
+          <h1>Log In Form</h1>
+          <FormControl margin="normal" fullWidth>
+            <InputLabel htmlFor="email">Email</InputLabel>
+            <Input id="email" name="email" onChange={this.onChange}/>
+          </FormControl>
+
+          <FormControl margin="normal" fullWidth>
+            <InputLabel htmlFor="password">password</InputLabel>
+            <Input id="password" name="password" type="password" onChange={this.onChange}/>
+          </FormControl>
+
+          <Button onClick={this.handleLogin} variant="contained" color="primary" size="medium">
+              Submit
+          </Button>
+          {/* <input type="submit"/> */}
         </form>
       </div>
     );

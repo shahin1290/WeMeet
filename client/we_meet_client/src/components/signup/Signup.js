@@ -1,16 +1,30 @@
 import React, { Component } from 'react';
 import axios from "axios";
-import './Signup.css'
+import FormControl  from "@material-ui/core/FormControl";
+import  InputLabel  from "@material-ui/core/InputLabel";
+import  Input  from "@material-ui/core/Input";
+import  Button  from "@material-ui/core/Button";
+
+
 
 class Signup extends Component {
+  state = {
+    email: '',
+    password: '',
+    password_confirmation: ''
+  }
+
+  onChange = (e) => {
+    this.setState({ [e.target.name]: e.target.value })
+  }
 
   handleSignup = async(e) => {
     e.preventDefault();
 
     let response = await axios.post('http://localhost:3000/auth/', { 
-                          email: this.email.value, 
-                          password: this.password.value,
-                          password_confirmation: this.password_confirmation.value 
+                          email: this.state.email, 
+                          password: this.state.password,
+                          password_confirmation: this.state.password_confirmation 
                           }, { headers: {
                               'Accept': 'application/json',
                               'Content-Type': 'application/json',
@@ -21,12 +35,35 @@ class Signup extends Component {
   }
   render() {
     return (
-      <div>
-        <form onSubmit={this.handleSignup}>
-          <input name="email" ref={(input) => this.email = input}/>
-          <input name="password" type="password" ref={(input) => this.password = input}/>
-          <input name="password_confirmation" type="password" ref={(input) => this.password_confirmation = input}/>
-          <input type="submit"/>
+      <div
+        style={{
+          display: "flex",
+          justifyContent: "center",
+          margin: 20,
+          padding: 20
+        }}
+      >
+        <form style={{ width: "35%" }}>
+          <h1>Sign Up Form</h1>
+          <FormControl margin="normal" fullWidth>
+            <InputLabel htmlFor="email">Email</InputLabel>
+            <Input id="email" name="email" onChange={this.onChange}/>
+          </FormControl>
+
+          <FormControl margin="normal" fullWidth>
+            <InputLabel htmlFor="password">password</InputLabel>
+            <Input id="password" name="password" type="password" onChange={this.onChange}/>
+          </FormControl>
+
+          <FormControl margin="normal" fullWidth>
+            <InputLabel htmlFor="password_confirmation">password confirmation</InputLabel>
+            <Input id="password_confirmation" name="password_confirmation" type="password" onChange={this.onChange}/>
+          </FormControl>
+
+          <Button onClick={this.handleSignup} variant="contained" color="primary" size="medium">
+              Submit
+          </Button>
+          {/* <input type="submit"/> */}
         </form>
       </div>
     );
