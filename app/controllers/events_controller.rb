@@ -5,7 +5,7 @@ class EventsController < ApplicationController
     else
       events = Event.all
     end
-    render json: events, each_serializer: Events::IndexSerializer
+    render json: events
   end
 
   def create
