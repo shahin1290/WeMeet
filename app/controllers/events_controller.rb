@@ -5,7 +5,12 @@ class EventsController < ApplicationController
     else
       events = Event.all
     end
-    render json: events
+    render json: events, each_serializer: Events::IndexSerializer
+  end
+
+  def show
+    event = Event.find(params[:id])
+    render json: event, serializer: Events::ShowSerializer
   end
 
   def create
@@ -21,6 +26,6 @@ class EventsController < ApplicationController
 
   private
   def event_params
-    params.require(:event).permit(:title, :description, :location)
+    params.require(:event).permit(:title, :description, :date, :location)
   end
 end

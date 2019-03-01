@@ -14,7 +14,7 @@ describe 'POST /groups' do
     end
 
     it 'responds with success message' do
-      expect(response_json['message']).to eq 'You have created a group successfully'
+      expect(response_json['message']).to eq 'Congratulations, your group has been created!'
     end
 
     it 'responds with status 200' do

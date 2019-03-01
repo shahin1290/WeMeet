@@ -23,6 +23,6 @@ describe 'GET /categories/:id' do
   end
 
   it 'returns 2 categories' do
-    expect(response_json.count).to eq 2
+    expect(response_json['categories'].count).to eq 2
   end
 end

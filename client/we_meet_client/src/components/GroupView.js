@@ -25,10 +25,11 @@ import { Link } from 'react-router-dom';
   }
 
    async getGroup(id) {
-    const response = await axios.get(`http://localhost:3000/groups/${id}`);
+    const response = await axios.get(`http://localhost:3000/groups/${id}/events`);
+    console.log(response.data)
     const group = response.data.group;
     this.setState({ group });
-    console.log(group)
+    
 
    }
 
