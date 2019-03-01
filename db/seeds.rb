@@ -16,7 +16,7 @@ Group.create(name: 'Front End Fun', category_id: tech.id)
 Group.create(name: 'Back End Development', category_id: tech.id)
 Group.create(name: 'Agile', category_id: tech.id)
 
-Event.create(title: 'STHLM TECH Meetup', description: 'All About Technology', location: 'Stockholm' group_id: craft_academy.id)
+Event.create(title: 'STHLM TECH Meetup', description: 'All About Technology', location: 'Stockholm', group_id: craft_academy.id, date: '2019-12-12')
 Event.create(title: 'Coffee n Code', group_id: craft_academy.id)
 Event.create(title: 'Scrum Fun', group_id: craft_academy.id)
 Event.create(title: 'Techie Treckies', group_id: craft_academy.id)

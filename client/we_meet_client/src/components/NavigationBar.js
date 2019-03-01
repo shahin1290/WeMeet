@@ -30,8 +30,8 @@ function ButtonAppBar(props) {
           <Typography variant="h6" color="inherit" className={classes.grow}>
             WeMeet
           </Typography>
-          <Button component={Link} to="/" color="inherit">
-            Home
+          <Button component={Link} to="/create-group" color="inherit">
+            Create a Group
           </Button>
           <Button component={Link} to="/signup" color="inherit">
             SignUp

@@ -7,6 +7,7 @@ import Signup from './components/Signup';
 import NavigationBar from './components/NavigationBar';
 import CategoryView from './components/CategoryView';
 import GroupView from './components/GroupView';
+import CreateGroup from './components/CreateGroup';
 
 
 class App extends Component {
@@ -20,7 +21,8 @@ class App extends Component {
             <Route  path='/login' component={Login}></Route>
             <Route  path='/signup' component={Signup}></Route>
             <Route exact path='/groups/:id' component={GroupView}></Route>
-          <Route exact path='/categories/:id' component={CategoryView}></Route>
+            <Route exact path='/categories/:id' component={CategoryView}></Route>
+            <Route  path='/create-group' component={CreateGroup}></Route>
           </Switch>
         </div>
       </BrowserRouter>

@@ -1,5 +1,5 @@
 class GroupsController < ApplicationController
-  before_action :authenticate_user!, only: [:create]
+  # before_action :authenticate_user!, only: [:create]
 
   def index
     groups = Group.all
@@ -23,7 +23,7 @@ class GroupsController < ApplicationController
   private
 
   def group_params
-    params.require(:group).permit(:name, :category_id, :description, :location)
+    params.require(:group).permit(:name, :category_id)
   end
 end
 
