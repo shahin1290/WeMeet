@@ -12,27 +12,23 @@ import { Link } from 'react-router-dom';
       description: '',
       location: '',
       id: '',
-      image_url: '',
       future_events: [],
       past_events: []
     } };
   }
 
    componentDidMount() {
-    // Get the number from url
     let id =  this.props.location.state.group.id;
     this.getGroup(id);
   }
 
    async getGroup(id) {
-    const response = await axios.get(`http://localhost:3000/groups/${id}/events`);
-    console.log(response.data)
+    const response = await axios.get(`http://localhost:3000/groups/${id}`);
     const group = response.data.group;
     this.setState({ group });
     
 
    }
-
 
    render() {
     let futureEvents = this.state.group.future_events.map(event => {

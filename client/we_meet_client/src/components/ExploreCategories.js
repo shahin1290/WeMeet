@@ -17,7 +17,7 @@ class ExploreCategories extends Component {
 
   async getCategories() {
     const response = await axios.get("http://localhost:3000/categories")
-    const categories = response.data;
+    const categories = response.data.categories;
     this.setState({ categories });
   }
 

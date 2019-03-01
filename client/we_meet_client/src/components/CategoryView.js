@@ -5,7 +5,10 @@ import { Link } from 'react-router-dom';
 
  class CategoryView extends Component {
     state = {
-      groups: []
+      category: {
+        name: '',
+        groups: []
+      }
     }
   
 
@@ -17,13 +20,13 @@ import { Link } from 'react-router-dom';
 
    async getCategoryGroups(id) {
     const response = await axios.get(`http://localhost:3000/categories/${id}`);
-    const groups = response.data;
-    this.setState({ groups });
+    const category = response.data.category;
+    this.setState({ category });
   }
 
 
    render() {
-    let groupList = this.state.groups.map(group => {
+    let groupList = this.state.category.groups.map(group => {
       return (
         <Link key={group.id} to={{pathname: `/groups/${group.id}`, state: {group}}} style={{ textDecoration: 'none' }}>
           <div >{group.name}</div>
