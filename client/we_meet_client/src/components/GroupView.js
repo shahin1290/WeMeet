@@ -2,8 +2,6 @@ import React, { Component } from "react";
 import axios from "axios";
 import { Link } from 'react-router-dom';
 
-
-
  class GroupView extends Component {
   constructor(props) {
     super(props);
@@ -36,6 +34,7 @@ import { Link } from 'react-router-dom';
         <Link key={event.id} to={{pathname: `/events/${event.id}`, state: {event: event}}} style={{ textDecoration: 'none' }}>
           <h4>{event.title}</h4>
           <p>{event.date}</p>
+          <p>{event.location}</p>
         </Link>
       )
     })
