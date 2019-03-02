@@ -4,6 +4,8 @@ import FormControl  from "@material-ui/core/FormControl";
 import  InputLabel  from "@material-ui/core/InputLabel";
 import  Input  from "@material-ui/core/Input";
 import  Button  from "@material-ui/core/Button";
+import { connect } from 'react-redux'
+import { signInUser } from '../redux-token-auth-config'
 
 
 class Login extends Component {
@@ -16,24 +18,35 @@ class Login extends Component {
     this.setState({ [e.target.name]: e.target.value })
   }
 
-  handleLogin = async(e) => {
-    e.preventDefault();
+  handleLogin = (e)=> {
+    e.preventDefault()
+    const { signInUser } = this.props
+    const {
+      email,
+      password,
+    } = this.state
+    signInUser({ email, password }) // <-<-<-<-<- here's the important part <-<-<-<-<-
 
-    const credentials = {
-      'access-token': localStorage.getItem('access-token'),
-      'token-type': localStorage.getItem('token-type'),
-      'client': localStorage.getItem('client'),
-      'expiry': localStorage.getItem('expiry'),
-      'uid': localStorage.getItem('uid'),
-    }
-
-    let response = await axios.post('http://localhost:3000/auth/sign_in', { 
-                          email: this.state.email, 
-                          password: this.state.password 
-                        }, { headers: credentials })
-
-    console.log(response);
   }
+
+  // handleLogin = async(e) => {
+  //   e.preventDefault();
+
+  //   const credentials = {
+  //     'access-token': localStorage.getItem('access-token'),
+  //     'token-type': localStorage.getItem('token-type'),
+  //     'client': localStorage.getItem('client'),
+  //     'expiry': localStorage.getItem('expiry'),
+  //     'uid': localStorage.getItem('uid'),
+  //   }
+
+  //   let response = await axios.post('http://localhost:3000/auth/sign_in', { 
+  //                         email: this.state.email, 
+  //                         password: this.state.password 
+  //                       }, { headers: credentials })
+
+  //   console.log(response);
+  // }
 
   render() {
     return (
@@ -67,4 +80,7 @@ class Login extends Component {
   }
 }
 
-export default Login;
+export default connect(
+  null,
+  { signInUser },
+)(Login)

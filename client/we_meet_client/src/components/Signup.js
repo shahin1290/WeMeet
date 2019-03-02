@@ -4,6 +4,8 @@ import FormControl  from "@material-ui/core/FormControl";
 import  InputLabel  from "@material-ui/core/InputLabel";
 import  Input  from "@material-ui/core/Input";
 import  Button  from "@material-ui/core/Button";
+import { connect } from 'react-redux';
+import { registerUser } from '../redux-token-auth-config';
 
 
 
@@ -18,21 +20,32 @@ class Signup extends Component {
     this.setState({ [e.target.name]: e.target.value })
   }
 
-  handleSignup = async(e) => {
-    e.preventDefault();
-
-    let response = await axios.post('http://localhost:3000/auth/', { 
-                          email: this.state.email, 
-                          password: this.state.password,
-                          password_confirmation: this.state.password_confirmation 
-                          }, { headers: {
-                              'Accept': 'application/json',
-                              'Content-Type': 'application/json',
-                            }}
-                          )
-
-    console.log(response);
+  handleSignup= (e) => {
+    e.preventDefault()
+    const { registerUser } = this.props
+    const {
+      email,
+      password_confirmation,
+      password,
+    } = this.state
+    registerUser({ email, password_confirmation, password }) // <-<-<-<-<- here's the important part <-<-<-<-<-
   }
+
+  // handleSignup = async(e) => {
+  //   e.preventDefault();
+
+  //   let response = await axios.post('http://localhost:3000/auth/', { 
+  //                         email: this.state.email, 
+  //                         password: this.state.password,
+  //                         password_confirmation: this.state.password_confirmation 
+  //                         }, { headers: {
+  //                             'Accept': 'application/json',
+  //                             'Content-Type': 'application/json',
+  //                           }}
+  //                         )
+
+  //   console.log(response);
+  // }
   render() {
     return (
       <div
@@ -70,4 +83,7 @@ class Signup extends Component {
   }
 }
 
-export default Signup;
+export default connect(
+  null,
+  { registerUser },
+)(Signup)

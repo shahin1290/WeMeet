@@ -8,7 +8,8 @@ class CreateGroup extends Component {
         description: '',
         location: '',
         category_id: '',
-        categories: []
+        categories: [],
+        navBarNotification: ''
   }
   
 
@@ -34,15 +35,16 @@ class CreateGroup extends Component {
       location: this.state.location,
       category_id: this.state.category_id
     }
-    // const credentials = {
-    //   'access-token': localStorage.getItem('access-token'),
-    //   'token-type': localStorage.getItem('token-type'),
-    //   'client': localStorage.getItem('client'),
-    //   'expiry': localStorage.getItem('expiry'),
-    //   'uid': localStorage.getItem('uid'),
-    // }
+    const credentials = {
+      'access-token': localStorage.getItem('access-token'),
+      'token-type': localStorage.getItem('token-type'),
+      'client': localStorage.getItem('client'),
+      'expiry': localStorage.getItem('expiry'),
+      'uid': localStorage.getItem('uid'),
+    }
  
-    let response = await axios.post('http://localhost:3000/groups', { group })
+    let response = await axios.post('http://localhost:3000/groups', { group }, { headers: credentials})
+    this.setState({ navBarNotification: response.data.message })
 
   }
 
@@ -99,6 +101,7 @@ class CreateGroup extends Component {
 
           <input type="submit" value="Submit"></input>
       </form>
+      {this.state.navBarNotification}
       </div>
     )
   }

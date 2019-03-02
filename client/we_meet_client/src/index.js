@@ -1,13 +1,13 @@
 import React from 'react';
 import ReactDOM from 'react-dom';
 import { Provider } from 'react-redux';
-import { createStore, applyMiddleware } from 'redux';
-import reducers from './reducers';
-import thunk from 'redux-thunk';
 import './index.css';
 import App from './App';
+import configureStore from './store/configureStore'
+import { verifyCredentials } from './redux-token-auth-config'
 
-const store = createStore(reducers, applyMiddleware(thunk))
+const store = configureStore()
+verifyCredentials(store)
 
 ReactDOM.render(
     <Provider store={store}>

@@ -20,8 +20,8 @@ class App extends Component {
             <Route exact path='/' component={HomePage}></Route>
             <Route  path='/login' component={Login}></Route>
             <Route  path='/signup' component={Signup}></Route>
-            <Route exact path='/groups/:id' component={GroupView}></Route>
-            <Route exact path='/categories/:id' component={CategoryView}></Route>
+            <Route  path='/groups/:id' component={GroupView}></Route>
+            <Route  path='/categories/:id' component={CategoryView}></Route>
             <Route  path='/create-group' component={CreateGroup}></Route>
           </Switch>
         </div>
