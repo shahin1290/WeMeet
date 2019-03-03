@@ -56,7 +56,7 @@ class ExploreCategories extends Component {
     let categoriesList = categories.map(category => {
       return (
         <Card className={classes.card}>
-          <CardActionArea>
+          <CardActionArea component={Link} to={{pathname: `/categories/${category.id}`, state: {category}}}>
             <CardMedia
               className={classes.media}
               image={`./assets/images/${category.name.toLowerCase()}.png`}

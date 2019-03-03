@@ -2,7 +2,9 @@ import { combineReducers } from 'redux'
 import eventsReducer from './eventsReducer'
 import { reduxTokenAuthReducer } from 'redux-token-auth'
 
-export default combineReducers({
+const rootReducer = combineReducers({
   reduxTokenAuth: reduxTokenAuthReducer,
   events: eventsReducer
 });
+
+export default rootReducer

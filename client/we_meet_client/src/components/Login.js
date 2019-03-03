@@ -1,5 +1,4 @@
 import React, { Component } from 'react';
-import axios from "axios";
 import FormControl  from "@material-ui/core/FormControl";
 import  InputLabel  from "@material-ui/core/InputLabel";
 import  Input  from "@material-ui/core/Input";
@@ -11,7 +10,8 @@ import { signInUser } from '../redux-token-auth-config'
 class Login extends Component {
   state = {
     email: '',
-    password: ''
+    password: '',
+    headerMessage: ''
   }
 
   onChange = (e) => {
@@ -25,28 +25,15 @@ class Login extends Component {
       email,
       password,
     } = this.state
-    signInUser({ email, password }) // <-<-<-<-<- here's the important part <-<-<-<-<-
-
+    signInUser({ email, password })
+    .then(() => {
+      this.setState({ headerMessage: `You are logged in` })
+    })
+    .catch((error) => {      
+      this.setState({ headerMessage: `That did not fly....` })
+    })
   }
 
-  // handleLogin = async(e) => {
-  //   e.preventDefault();
-
-  //   const credentials = {
-  //     'access-token': localStorage.getItem('access-token'),
-  //     'token-type': localStorage.getItem('token-type'),
-  //     'client': localStorage.getItem('client'),
-  //     'expiry': localStorage.getItem('expiry'),
-  //     'uid': localStorage.getItem('uid'),
-  //   }
-
-  //   let response = await axios.post('http://localhost:3000/auth/sign_in', { 
-  //                         email: this.state.email, 
-  //                         password: this.state.password 
-  //                       }, { headers: credentials })
-
-  //   console.log(response);
-  // }
 
   render() {
     return (
@@ -71,10 +58,11 @@ class Login extends Component {
           </FormControl>
 
           <Button onClick={this.handleLogin} variant="contained" color="primary" size="medium">
-              Submit
+            Submit
           </Button>
           {/* <input type="submit"/> */}
         </form>
+        { this.state.headerMessage}
       </div>
     );
   }
