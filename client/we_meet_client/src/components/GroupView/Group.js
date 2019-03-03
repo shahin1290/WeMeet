@@ -1,8 +1,10 @@
 import React, { Component } from "react";
 import axios from "axios";
 import { Link } from 'react-router-dom';
+import GroupHeader from './GroupHeader'
+import GroupBody from './GroupBody'
 
- class GroupView extends Component {
+ class Group extends Component {
   constructor(props) {
     super(props);
     this.state = { group: {
@@ -11,7 +13,9 @@ import { Link } from 'react-router-dom';
       location: '',
       id: '',
       future_events: [],
-      past_events: []
+      past_events: [],
+      organizer: '',
+      members: []
     } };
   }
 
@@ -41,11 +45,11 @@ import { Link } from 'react-router-dom';
     return (
       <div>
         <h1>This is the group show page for {this.state.group.name}</h1>
-        <h3>Future Events:</h3>
-        <div>{futureEvents}</div>
+        <GroupHeader group={this.state.group} />
+        <GroupBody group={this.state.group} />
       </div>
     );
   }
 }
 
- export default GroupView; 
+ export default Group; 
