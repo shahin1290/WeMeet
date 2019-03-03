@@ -8,7 +8,6 @@ class GroupHeader extends Component {
     const credentials = { 'access-token': localStorage.getItem('access-token'), 'token-type': localStorage.getItem('token-type'), 'client': localStorage.getItem('client'), 'expiry': localStorage.getItem('expiry'), 'uid': localStorage.getItem('uid'), }
 
     const response = await axios.post(`http://localhost:3000/groups/${this.props.group.id}/memberships`, {}, { headers: credentials }) 
-    console.log(response)
   }
   render() {
     let group = this.props.group;
@@ -32,14 +31,14 @@ class GroupHeader extends Component {
               <p>
                 Organized by{" "}
                 <span style={{ fontWeight: "bold", color: "teal" }}>
-                  {/* {group.organizer.name} */}
-                  shahin
+                  {group.organizer.email}
                 </span>
               </p>
               <p>
                 Group in{" "}
                 <span style={{ fontWeight: "bold", color: "teal" }}>
-                  {group.location}
+                  {/* {group.location} */}
+                  need to setup in model
                 </span>
               </p>
             </div>

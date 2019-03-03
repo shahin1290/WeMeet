@@ -9,7 +9,6 @@ const GroupBody = props => {
       <p key={future_event.id}>{future_event.title}</p>
     )
   })
-  console.log(group.members)
   const membersList = group.members.map(member => {
     return (
       <p key={member.id}>{member.name}</p>

@@ -36,7 +36,8 @@ ActiveRecord::Schema.define(version: 2019_02_04_200935) do
     t.string "name"
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
-    t.string "category_id"
+    t.integer "category_id"
+    t.integer "organizer_id"
   end
 
   create_table "memberships", force: :cascade do |t|

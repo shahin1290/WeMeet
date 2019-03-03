@@ -12,7 +12,7 @@ class GroupsController < ApplicationController
   end
 
   def create
-    group = Group.create(group_params)
+    group = Group.create(group_params.merge!(organizer: current_user))
     if group.persisted?
       render json: { message: 'Congratulations, your group has been created!' }
     else

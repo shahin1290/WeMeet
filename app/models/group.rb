@@ -5,6 +5,7 @@ class Group < ApplicationRecord
   has_many :members, class_name: 'Membership'
   has_many :events
   belongs_to :category
+  belongs_to :organizer, class_name: 'User'
 
   def future_events
     events.future_events

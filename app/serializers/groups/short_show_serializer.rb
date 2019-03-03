@@ -3,8 +3,6 @@ class Groups::ShortShowSerializer < ActiveModel::Serializer
   has_many :future_events, serializer: Events::ForGroupCollectionSerializer
   has_many :past_events, serializer: Events::ForGroupCollectionSerializer
 
- 
-  
   def description
     object&.description
   end
