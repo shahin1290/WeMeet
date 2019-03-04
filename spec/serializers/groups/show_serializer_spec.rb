@@ -10,7 +10,7 @@ describe Groups::ShowSerializer, type: :serializer do
   subject { JSON.parse(serialization.to_json) }
 
   it 'contains relevant keys' do
-    expected_keys = %w[id name future_events past_events]
+    expected_keys = %w[id name members organizer future_events past_events]
     expect(subject.keys).to match expected_keys
   end
 end

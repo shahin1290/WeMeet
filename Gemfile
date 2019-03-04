@@ -15,12 +15,14 @@ gem 'active_model_serializers'
 gem 'devise_token_auth'
 gem 'uglifier', '>= 1.3.0'
 
+
 group :development, :test do
   gem 'pry-rails'
   gem 'rspec-rails'
   gem 'shoulda-matchers'
   gem 'factory_bot_rails'
   gem 'coveralls', require: false
+  gem 'faker'
 end
 
 group :development do
