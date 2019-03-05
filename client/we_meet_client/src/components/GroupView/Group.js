@@ -7,6 +7,9 @@ import Button from '@material-ui/core/Button';
 
 
 class Group extends Component {
+  state = {
+    joinSuccessMessage : ''
+  }
   componentDidMount() {
     let id =  this.props.location.state.group.id;
     this.props.fetchGroup(id);
@@ -14,24 +17,32 @@ class Group extends Component {
 
   joinGroup = async() => {
     const credentials = { 'access-token': localStorage.getItem('access-token'), 'token-type': localStorage.getItem('token-type'), 'client': localStorage.getItem('client'), 'expiry': localStorage.getItem('expiry'), 'uid': localStorage.getItem('uid'), }
-
-    const response = await axios.post(`http://localhost:3000/groups/${this.props.group.id}/memberships`, {}, { headers: credentials }) 
+    let id = this.props.group.id
+    await axios.post(`http://localhost:3000/groups/${id}/memberships`, {}, { headers: credentials }) 
+    this.props.fetchGroup(id);
   }
 
   render() {
-  let eventsArray = this.props.group.future_events
-  let futureEvents
-  if ( eventsArray) {
-    futureEvents = eventsArray.map((event) => {
-      return (
-        <div>
-          <h1>{event.title}</h1>
-        </div>
-      );
-    });
-  }
-      
-    
+    let membersArray =  this.props.members
+    let eventsArray = this.props.group.future_events
+
+    let futureEvents, groupMembersNumber, groupMembersList
+
+    if ( eventsArray) {
+      futureEvents = eventsArray.map((event) => {
+        return (
+          <div>
+            <h1>{event.title}</h1>
+          </div>
+        );
+      });
+    }
+
+    if(membersArray){
+      groupMembersNumber = membersArray.length
+      groupMembersList = membersArray.map(member => <p key={member.id}>{member.name}</p>)
+    }
+
     return (
       <div>
         <div style={{ height:"400px", borderTop: "2px solid rgba(0,0,0,.12)", borderBottom: "1px solid rgba(0,0,0,.12)"}}>
@@ -49,6 +60,7 @@ class Group extends Component {
                 }}
               />
             </div>
+            {this.state.joinSuccessMessage}
           <div
             style={{
               position: "absolute", right: "25.5rem",marginTop: "5rem",fontWeight: "400",lineHeight: "1.5",marginBottom: "1rem",marginLeft: "3.2rem"
@@ -96,8 +108,8 @@ class Group extends Component {
           </div>
           <div>
             <div style={{ height:"auto", width:"300px", position:"absolute", right:"16.5rem", backgroundColor: "white", width: "300px", marginTop: "2.5rem", borderRadius: "5px", border: "1px solid rgba(0,0,0,.12)" }}>
-              <div style={{fontSize:"20px", padding:"0.5rem"}}> Members (group.members.length)</div>
-              membersList
+              <div style={{fontSize:"20px", padding:"0.5rem"}}>Members ({groupMembersNumber})</div>
+                { }
                 <Button
                     style={{ position:"absolute", width:"200px", marginTop:"1rem", fontSize:"20px"}}
                   >
@@ -114,7 +126,10 @@ class Group extends Component {
 }
 
 const mapStateToProps = (state) => {
-  return { group: state.group }
+  return { 
+    group: state.group, 
+    members: state.group.members
+  }
 }
 
 export default connect(mapStateToProps, { fetchGroup } )(Group);
