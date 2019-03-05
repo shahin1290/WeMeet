@@ -7,7 +7,9 @@ const initialState = {
         email: null, // <-- Just an example. Attributes are whatever you specify in your cofig (below).
       },
     },
-  }
+  },
+  events : [],
+  group: {}
 }
 
 export default initialState
