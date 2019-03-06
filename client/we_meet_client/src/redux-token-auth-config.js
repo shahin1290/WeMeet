@@ -4,7 +4,7 @@ import { generateAuthActions } from 'redux-token-auth'
   authUrl: 'http://localhost:3000/auth',
   userAttributes: {
 
-     // email: 'email',
+     name: 'name',
     // imageUrl: 'image',
     'access-token': 'access-token',
     client: 'client',
@@ -12,7 +12,7 @@ import { generateAuthActions } from 'redux-token-auth'
     uid: 'uid'
   },
   userRegistrationAttributes: {
-    firstName: 'first_name',
+    name: 'name',
   },
 }
 

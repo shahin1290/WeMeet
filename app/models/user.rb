@@ -1,4 +1,5 @@
 class User < ApplicationRecord
+  validates_presence_of :name
   # Fix based on https://github.com/lynndylanhurley/devise_token_auth/issues/1079#issuecomment-363155625
   def tokens_has_json_column_type?
     false

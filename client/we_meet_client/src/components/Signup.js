@@ -8,9 +8,9 @@ import { connect } from 'react-redux';
 import { registerUser } from '../redux-token-auth-config';
 
 
-
 class Signup extends Component {
   state = {
+    name: '',
     email: '',
     password: '',
     password_confirmation: ''
@@ -24,28 +24,14 @@ class Signup extends Component {
     e.preventDefault()
     const { registerUser } = this.props
     const {
+      name,
       email,
       password_confirmation,
       password,
     } = this.state
-    registerUser({ email, password_confirmation, password }) // <-<-<-<-<- here's the important part <-<-<-<-<-
+    registerUser({ name, email, password_confirmation, password }) // <-<-<-<-<- here's the important part <-<-<-<-<-
   }
 
-  // handleSignup = async(e) => {
-  //   e.preventDefault();
-
-  //   let response = await axios.post('http://localhost:3000/auth/', { 
-  //                         email: this.state.email, 
-  //                         password: this.state.password,
-  //                         password_confirmation: this.state.password_confirmation 
-  //                         }, { headers: {
-  //                             'Accept': 'application/json',
-  //                             'Content-Type': 'application/json',
-  //                           }}
-  //                         )
-
-  //   console.log(response);
-  // }
   render() {
     return (
       <div
@@ -58,6 +44,11 @@ class Signup extends Component {
       >
         <form style={{ width: "35%" }}>
           <h1>Sign Up Form</h1>
+          <FormControl margin="normal" fullWidth>
+            <InputLabel htmlFor="name">Name</InputLabel>
+            <Input id="name" name="name" onChange={this.onChange}/>
+          </FormControl>
+
           <FormControl margin="normal" fullWidth>
             <InputLabel htmlFor="email">Email</InputLabel>
             <Input id="email" name="email" onChange={this.onChange}/>
