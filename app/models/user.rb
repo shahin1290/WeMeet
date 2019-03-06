@@ -14,4 +14,5 @@ class User < ApplicationRecord
   has_many :rsvps
   has_many :memberships
   has_many :groups, through: :memberships
+  has_many :organized_groups, class_name: 'Group', foreign_key: 'organizer_id'
 end

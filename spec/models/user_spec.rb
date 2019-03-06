@@ -22,4 +22,16 @@ describe User, type: :model do
       expect(create(:user)).to be_valid
     end
   end
+
+  describe '#organized_groups' do
+    let!(:group){ create(:group, organizer: subject) }
+
+     subject { create(:user) }
+
+     it 'includes the group' do
+      ids = subject.organized_groups.map(&:id)
+      expect(ids).to include group.id
+    end
+  end
+  
 end

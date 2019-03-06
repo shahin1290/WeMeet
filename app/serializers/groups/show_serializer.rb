@@ -1,5 +1,5 @@
 class Groups::ShowSerializer < ActiveModel::Serializer
-  attributes :id, :name
+  attributes :id, :name, :description, :location
   attribute :members
   attribute :organizer
   has_many :future_events, serializer: Events::ForGroupCollectionSerializer

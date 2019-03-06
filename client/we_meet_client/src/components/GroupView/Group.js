@@ -15,7 +15,6 @@ class Group extends Component {
     let id =  this.props.location.state.group.id;
     this.props.fetchGroup(id);
     this.getMemberList()
-    
   }
 
   joinGroup = async() => {
@@ -24,11 +23,9 @@ class Group extends Component {
     await axios.post(`http://localhost:3000/groups/${id}/memberships`, {}, { headers: credentials }) 
     this.props.fetchGroup(id);
     this.getMemberList()
-
   }
 
   getMemberList = async() => {
-    // const credentials = { 'access-token': localStorage.getItem('access-token'), 'token-type': localStorage.getItem('token-type'), 'client': localStorage.getItem('client'), 'expiry': localStorage.getItem('expiry'), 'uid': localStorage.getItem('uid'), }
     let id =  this.props.location.state.group.id;
     const response = await axios.get(`http://localhost:3000/groups/${id}/memberships`) 
     this.setState({groupMembersList : response.data })
@@ -36,34 +33,17 @@ class Group extends Component {
 
 
 
-
   render() {
     let membersArray =  this.props.members
     let eventsArray = this.props.group.future_events
+    let groupOrganizer = this.props.group.organizer
 
-    let futureEvents, groupMembersNumber, groupMembersList
-
-    if ( eventsArray) {
-      futureEvents = eventsArray.map((event) => {
-        return (
-          <div>
-            <h1>{event.title}</h1>
-          </div>
-        );
-      });
-    }
-
-    if(membersArray){
-      groupMembersNumber = membersArray.length
-      // groupMembersList = membersArray.map(member => {
-      //   console.log(member.user.email)
-      // })
-    }
+    let futureEvents, groupMembersNumber 
 
     return (
       <div>
         <div style={{ height:"400px", borderTop: "2px solid rgba(0,0,0,.12)", borderBottom: "1px solid rgba(0,0,0,.12)"}}>
-          <h1 style={{ fontSize: "2.75rem", position:"absolute", right:"15rem", marginTop:"1.5rem" }}>group.name</h1>
+          <h1 style={{ fontSize: "2.75rem", position:"absolute", right:"15rem", marginTop:"1.5rem" }}>{this.props.group.name}</h1>
           <div>
               <img
                 src="../assets/images/graduation.jpg"
@@ -86,13 +66,13 @@ class Group extends Component {
             <p>
               Organized by{" "}
               <span style={{ fontWeight: "bold", color: "teal" }}>
-                group.organizer.email
+                { groupOrganizer ? groupOrganizer.name : 'organizer'}
               </span>
             </p>
             <p>
               Group in{" "}
               <span style={{ fontWeight: "bold", color: "teal" }}>
-                group.location
+                {this.props.group.location}
               </span>
             </p>
           </div>
@@ -115,17 +95,17 @@ class Group extends Component {
         <div className="flex">
           <div className="w-3/5">
             <h2 style={{ fontSize: "2rem", marginLeft: "9rem", marginTop: "2rem" }}>Description</h2>
-            <p style={{ fontSize: "1rem", marginLeft: "9rem", marginTop: "2rem" }}>group.description</p>
+            <p style={{ fontSize: "1rem", marginLeft: "9rem", marginTop: "2rem" }}>{this.props.group.description}</p>
 
             <div style={{ marginLeft: "9rem", marginTop: "2rem", marginBottom: "10rem" }}>
               <h2 style={{ fontSize: "2rem", lineHeight:"2"}}>Future events</h2>
-              futureEventsList
+              { eventsArray ? eventsArray.map((event) => <h1>{event.title}</h1>) : null }
             </div>
 
           </div>
           <div>
             <div style={{ height:"auto", width:"300px", position:"absolute", right:"16.5rem", backgroundColor: "white", width: "300px", marginTop: "2.5rem", borderRadius: "5px", border: "1px solid rgba(0,0,0,.12)" }}>
-              <div style={{fontSize:"20px", padding:"0.5rem"}}>Members ({groupMembersNumber})</div>
+              <div style={{fontSize:"20px", padding:"0.5rem"}}>Members ({ membersArray ? membersArray.length : null})</div>
                 { this.state.groupMembersList.map(member => <p> {member.name} </p>) }
                 <Button
                     style={{ position:"absolute", width:"200px", marginTop:"1rem", fontSize:"20px"}}

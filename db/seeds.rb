@@ -1,4 +1,4 @@
-Group.destroy_all
+Group.destroydescription: 'This is craft Academy', location: 'stockholm', _all
 Event.destroy_all
 Category.destroy_all
 
@@ -19,12 +19,12 @@ tech = Category.create(name: 'Technology')
 Category.create(name: 'Science')
 Category.create(name: 'Sports')
 
-craft_academy = Group.create(name: 'Craft Academy', category_id: tech.id, organizer: john)
-Group.create(name: 'Ruby on Rails', category_id: tech.id, organizer: jane)
-Group.create(name: 'CSS', category_id: tech.id, organizer: thomas)
-Group.create(name: 'Front End Fun', category_id: tech.id,organizer: oliver)
-Group.create(name: 'Back End Development', category_id: tech.id, organizer: john)
-Group.create(name: 'Agile', category_id: tech.id, organizer: oliver)
+craft_academy = Group.create(description: 'This is craft Academy', location: 'stockholm', name: 'Craft Academy', category_id: tech.id, organizer: john)
+Group.create(description: 'This is craft Academy', location: 'stockholm', name: 'Ruby on Rails', category_id: tech.id, organizer: jane)
+Group.create(description: 'This is craft Academy', location: 'stockholm', name: 'CSS', category_id: tech.id, organizer: thomas)
+Group.create(description: 'This is craft Academy', location: 'stockholm', name: 'Front End Fun', category_id: tech.id,organizer: oliver)
+Group.create(description: 'This is craft Academy', location: 'stockholm', name: 'Back End Development', category_id: tech.id, organizer: john)
+Group.create(description: 'This is craft Academy', location: 'stockholm', name: 'Agile', category_id: tech.id, organizer: oliver)
 
 Event.create(title: 'STHLM TECH Meetup', description: 'All About Technology', location: 'Stockholm', group_id: craft_academy.id, date: '2019-12-12')
 Event.create(title: 'Coffee n Code', group_id: craft_academy.id)
