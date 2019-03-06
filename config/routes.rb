@@ -10,7 +10,7 @@ Rails.application.routes.draw do
   resources :categories, only: [:index, :show] 
 
   resources :groups, only: [:index, :show, :create] do
-    resources :memberships, only: [:create]
+    resources :memberships, only: [:index, :create]
     resources :events, only: [:index, :create]
   end
   

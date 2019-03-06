@@ -2,13 +2,13 @@ Group.destroy_all
 Event.destroy_all
 Category.destroy_all
 
-john = User.create(email: 'john@mail.com', password: 'password')
+john = User.create(email: 'john@mail.com', password: 'password', name: 'john')
 
-jane = User.create(email: 'jane@mail.com', password: 'password')
+jane = User.create(email: 'jane@mail.com', password: 'password', name: 'jane')
 
-thomas = User.create(email: 'thomas@mail.com', password: 'password')
+thomas = User.create(email: 'thomas@mail.com', password: 'password', name: 'thomas')
 
-oliver = User.create(email: 'oliver@mail.com', password: 'password')
+oliver = User.create(email: 'oliver@mail.com', password: 'password', name: 'oliver')
 
 attendees = [thomas, oliver]
 
