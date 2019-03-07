@@ -29,6 +29,7 @@ ActiveRecord::Schema.define(version: 2019_02_04_200935) do
     t.date "date"
     t.text "description"
     t.string "location"
+    t.time "time"
     t.index ["group_id"], name: "index_events_on_group_id"
   end
 
