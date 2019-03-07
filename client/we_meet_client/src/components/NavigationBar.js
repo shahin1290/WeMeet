@@ -26,11 +26,12 @@ const styles = {
 
 function ButtonAppBar(props) {
   const { classes } = props;
-  let signUpLink, logInLink, logOutLink, createGroupLink
+  let signUpLink, logInLink, logOutLink, createGroupLink, profileLink
 
   if(props.isSignedIn){
     createGroupLink =  <Button component={Link} to="/create-group" color="inherit">Create a Group</Button>;
     logOutLink = <Logout />
+    profileLink = <Button component={Link} to={`/users/${props.currentUser.attributes.id}`} color="inherit">Profile</Button>;
   } else {
     signUpLink =  <Button component={Link} to="/signup" color="inherit">SignUp</Button>;
     logInLink =  <Button component={Link} to="/login" color="inherit">LogIn</Button>
@@ -46,6 +47,7 @@ function ButtonAppBar(props) {
           { logInLink }
           { createGroupLink }
           { logOutLink }
+          { profileLink }
         </Toolbar>
       </AppBar>
     </div>

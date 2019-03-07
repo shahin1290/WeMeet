@@ -5,11 +5,13 @@ import { generateAuthActions } from 'redux-token-auth'
   userAttributes: {
 
      name: 'name',
+     email: 'email',
     // imageUrl: 'image',
     'access-token': 'access-token',
     client: 'client',
     expiry: 'expiry',
-    uid: 'uid'
+    uid: 'uid',
+    id: 'id'
   },
   userRegistrationAttributes: {
     name: 'name',
