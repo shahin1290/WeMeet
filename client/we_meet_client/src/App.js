@@ -7,6 +7,7 @@ import Signup from './components/Signup';
 import NavigationBar from './components/NavigationBar';
 import CategoryView from './components/CategoryView';
 import Group from './components/GroupView/Group';
+import Event from './components/EventView/Event';
 import CreateGroup from './components/CreateGroup';
 
 
@@ -18,6 +19,7 @@ class App extends Component {
           <NavigationBar />
           <Switch>
             <Route exact path='/' component={HomePage}></Route>
+            <Route exact path='/events/:id' component={Event}></Route>
             <Route  path='/login' component={Login}></Route>
             <Route  path='/signup' component={Signup}></Route>
             <Route  path='/groups/:id' component={Group}></Route>

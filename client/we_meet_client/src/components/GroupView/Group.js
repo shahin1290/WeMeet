@@ -78,7 +78,7 @@ class Group extends Component {
             <div style={{ marginLeft: "9rem", marginTop: "2rem", marginBottom: "10rem" }}>
               <h2 style={{ textAlign: 'center'}}>Future events</h2>
               { eventsArray ? eventsArray.map((event) => 
-              <SimpleCard>
+              <SimpleCard event={event}>
                 <h3>{event.title}</h3>
                 <p>{event.description}</p>
                 <p>{event.location}</p>
