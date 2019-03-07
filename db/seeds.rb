@@ -1,4 +1,4 @@
-Group.destroydescription: 'This is craft Academy', location: 'stockholm', _all
+Group.destroy_all
 Event.destroy_all
 Category.destroy_all
 
@@ -27,8 +27,8 @@ Group.create(description: 'This is craft Academy', location: 'stockholm', name: 
 Group.create(description: 'This is craft Academy', location: 'stockholm', name: 'Agile', category_id: tech.id, organizer: oliver)
 
 Event.create(title: 'STHLM TECH Meetup', description: 'All About Technology', location: 'Stockholm', group_id: craft_academy.id, date: '2019-12-12')
-Event.create(title: 'Coffee n Code', group_id: craft_academy.id)
-Event.create(title: 'Scrum Fun', group_id: craft_academy.id)
-Event.create(title: 'Techie Treckies', group_id: craft_academy.id)
-Event.create(title: 'Hackathon', group_id: craft_academy.id)
-Event.create(title: 'Code Party', group_id: craft_academy.id)
+Event.create(title: 'Coffee n Code', description: 'All About Technology', location: 'Stockholm', group_id: craft_academy.id, date: '2019-10-12' )
+Event.create(title: 'Scrum Fun', description: 'All About Technology', location: 'Stockholm', group_id: craft_academy.id, date: '2018-12-12')
+Event.create(title: 'Techie Treckies', description: 'All About Technology', location: 'Gothenburg', group_id: craft_academy.id, date: '2019-12-12' )
+Event.create(title: 'Hackathon', description: 'All About Technology', location: 'Linkoping', group_id: craft_academy.id, date: '2019-11-12' )
+Event.create(title: 'Code Party', description: 'All About Technology', location: 'Stockholm', group_id: craft_academy.id, date: '2019-12-11')
