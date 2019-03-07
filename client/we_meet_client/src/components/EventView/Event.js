@@ -35,8 +35,15 @@ class EventView extends Component {
     this.setState({ event });
   }
 
+  rsvpToEvent = async() => {
+    const credentials = { 'access-token': localStorage.getItem('access-token'), 'token-type': localStorage.getItem('token-type'), 'client': localStorage.getItem('client'), 'expiry': localStorage.getItem('expiry'), 'uid': localStorage.getItem('uid'), }
+    const id = this.props.match.params.id
+    await axios.post(`http://localhost:3000//events/${id}/attendees`, {}, { headers: credentials }) 
+    this.getEvent(id);
+  }
+
+
   render() {
-    console.log(this.state.event.attendees)
     let attendeeList = this.state.event.attendees.map(attendee => {
       return (
         <p key={attendee.id}>{attendee.name}</p>
@@ -67,7 +74,7 @@ class EventView extends Component {
               color: "red"
             }}
           >
-            {this.state.event.date}
+            {moment(this.state.event.date).format("MM")}
           </div>
           <div
             style={{
@@ -88,9 +95,9 @@ class EventView extends Component {
             }}>
                 {moment(this.state.event.date).format("MMMM Do YYYY")}
                 {" at "}
-                moment(event.time).format("h:mm a")
+                {moment(this.state.event.time).format("h:mm a")}
           </div>
-          <h1 style={{ fontSize: "2.75rem" }}>event.title</h1>
+          <h1 style={{ fontSize: "2.75rem" }}>{this.state.event.title}</h1>
           <div>
             <img
               src="event.group.organizer.image_url"
@@ -130,7 +137,7 @@ class EventView extends Component {
             <button style={{position:"absolute", width:"250px", right:"13.3rem", top:"9rem", fontSize:"2rem"}}
     
                 // id={`attend-event-${event.id}`}
-                // onClick={this.props.rsvpHandler.bind(this, event.id)}
+                onClick={this.rsvpToEvent}
               >
                 RSVP
             </button>
@@ -152,9 +159,8 @@ class EventView extends Component {
         </div>
         <div className="w-2/5">
           <div className="sidebar" style={{ padding:"0.5rem", backgroundColor: "white", width: "300px", marginLeft: "3rem", marginTop: "2.5rem", borderRadius: "5px", border: "1px solid rgba(0,0,0,.12)" }}>
-            <div style={{lineHeight:"1.5", paddingBottom:"1rem"}}><span style={{fontWeight:"bold"}}>Date:</span><br></br>moment(event.date).format("dddd, MMMM DD, YYYY")</div>
-            <div style={{lineHeight:"1.5", paddingBottom:"1rem"}}><span style={{fontWeight:"bold"}}>Location:</span><br></br>event.location</div>
-            <img src="../../assets/images/map.png" />
+            <div style={{lineHeight:"1.5", paddingBottom:"1rem"}}><span style={{fontWeight:"bold"}}>Date:</span><br></br>{moment(this.state.event.date).format("dddd, MMMM DD, YYYY")}</div>
+            <div style={{lineHeight:"1.5", paddingBottom:"1rem"}}><span style={{fontWeight:"bold"}}>Location:</span><br></br>{this.state.event.location}</div>
           </div>
         </div>
       </div>

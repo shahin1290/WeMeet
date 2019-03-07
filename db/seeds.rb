@@ -26,9 +26,14 @@ Group.create(description: 'This is craft Academy', location: 'stockholm', name: 
 Group.create(description: 'This is craft Academy', location: 'stockholm', name: 'Back End Development', category_id: tech.id, organizer: john)
 Group.create(description: 'This is craft Academy', location: 'stockholm', name: 'Agile', category_id: tech.id, organizer: oliver)
 
-Event.create(title: 'STHLM TECH Meetup', description: 'All About Technology', location: 'Stockholm', group_id: craft_academy.id, date: '2019-12-12')
-Event.create(title: 'Coffee n Code', description: 'All About Technology', location: 'Stockholm', group_id: craft_academy.id, date: '2019-10-12' )
-Event.create(title: 'Scrum Fun', description: 'All About Technology', location: 'Stockholm', group_id: craft_academy.id, date: '2018-12-12')
-Event.create(title: 'Techie Treckies', description: 'All About Technology', location: 'Gothenburg', group_id: craft_academy.id, date: '2019-12-12' )
-Event.create(title: 'Hackathon', description: 'All About Technology', location: 'Linkoping', group_id: craft_academy.id, date: '2019-11-12' )
-Event.create(title: 'Code Party', description: 'All About Technology', location: 'Stockholm', group_id: craft_academy.id, date: '2019-12-11')
+event1 = Event.create(title: 'STHLM TECH Meetup', description: 'All About Technology', location: 'Stockholm', group_id: craft_academy.id, date: '2019-12-12',  time: '14:00')
+event2 = Event.create(title: 'Coffee n Code', description: 'All About Technology', location: 'Stockholm', group_id: craft_academy.id, date: '2019-10-12',  time: '13:00')
+Event.create(title: 'Scrum Fun', description: 'All About Technology', location: 'Stockholm', group_id: craft_academy.id, date: '2018-12-12',  time: '17:00')
+Event.create(title: 'Techie Treckies', description: 'All About Technology', location: 'Gothenburg', group_id: craft_academy.id, date: '2019-12-12',  time: '16:00' )
+Event.create(title: 'Hackathon', description: 'All About Technology', location: 'Linkoping', group_id: craft_academy.id, date: '2019-11-12', time: '11:00' )
+Event.create(title: 'Code Party', description: 'All About Technology', location: 'Stockholm', group_id: craft_academy.id, date: '2019-12-11',  time: '17:00')
+
+attendees.each do |attendee|
+  event1.attendees.create(user: attendee)
+  event2.attendees.create(user: attendee)
+end
