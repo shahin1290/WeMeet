@@ -4,8 +4,8 @@ import { fetchGroup } from '../../actions/groupAction'
 import { connect } from 'react-redux';
 import Button from '@material-ui/core/Button';
 import  SimpleCard  from "./FutureEventCard";
-
-
+import PropTypes from 'prop-types';
+import { withStyles } from '@material-ui/core/styles';
 
 class Group extends Component {
   state = {
@@ -33,74 +33,38 @@ class Group extends Component {
     this.setState({groupMembersList : response.data })
   }
 
-
-
   render() {
+    const { classes } = this.props;
     let membersArray =  this.props.members
     let eventsArray = this.props.group.future_events
     let groupOrganizer = this.props.group.organizer
 
     return (
       <div>
-        
-        <div style={{ height:"400px", borderTop: "2px solid rgba(0,0,0,.12)", borderBottom: "1px solid rgba(0,0,0,.12)"}}>
-          <h1 style={{ fontSize: "2.75rem", position:"absolute", right:"15rem", marginTop:"1.5rem" }}>{this.props.group.name}</h1>
-          <img
-            src="../assets/images/graduation.jpg"
-            style={{
-              height: "300px",
-              border: "1px solid rgba(0,0,0,.12)",
-              borderRadius: "30px",
-              position: "absolute",
-              marginTop: "1.5rem",
-              marginLeft: "7rem"
-            }}
-          />
-          {this.state.joinSuccessMessage}
-          <div
-            style={{
-              position: "absolute", right: "25.5rem",marginTop: "5rem",fontWeight: "400",lineHeight: "1.5",marginBottom: "1rem",marginLeft: "3.2rem"
-            }}
-          >
-            <p>
-              Organized by{" "}
-              <span style={{ fontWeight: "bold", color: "teal" }}>
-                { groupOrganizer ? groupOrganizer.name : 'organizer'}
-              </span>
-            </p>
-            <p>
-              Group in{" "}
-              <span style={{ fontWeight: "bold", color: "teal" }}>
-                {this.props.group.location}
-              </span>
-            </p>
 
-            <div style={{ height:"auto", width:"300px", position:"absolute", right:"16.5rem", backgroundColor: "white", width: "300px", marginTop: "2.5rem", borderRadius: "5px", border: "1px solid rgba(0,0,0,.12)" }}>
-            <div style={{fontSize:"20px", padding:"0.5rem"}}>Members ({ membersArray ? membersArray.length : null})</div>
-              { this.state.groupMembersList.map(member => <p> {member.name} </p>) }
-              <Button
-                  style={{ position:"absolute", width:"200px", marginTop:"1rem", fontSize:"20px"}}
-                >
-                  Message group
-              </Button>
+        <div className={classes.header}>
+          <div className={classes.row}>
+            <div className={classes.column}>
+              <img src="../assets/images/graduation.jpg" className={classes.image} />
             </div>
-            
+              <div className={classes.column}>
+                <h1>{this.props.group.name}</h1>
+                <p>Organized by: <span className={classes.emphasis}>{ groupOrganizer ? groupOrganizer.name : 'organizer'}</span></p>
+                <p>Group in: <span className={classes.emphasis}>{this.props.group.location}</span></p>
+                <p>Members ({ membersArray ? membersArray.length : null})</p>
+                <div className={classes.memberList}>
+                  { this.state.groupMembersList.map(member => <span className={classes.emphasis}> {member.name} </span>) }
+                </div>
+                <Button onClick = { this.joinGroup } className={ classes.joinGroup}>Join this group</Button>
+              </div>
           </div>
+          
 
-          <div>
-            <Button
-                onClick = { this.joinGroup }
-                style={{ position:"absolute", right:"16.5rem", width:"300px", marginTop:"10rem", fontSize:"24px"}}
-              >
-                Join group
-            </Button>
-            <Button
-                style={{ position:"absolute", right:"16.5rem", width:"300px", marginTop:"15rem", fontSize:"24px"}}
-              >
-                Create event
-            </Button>
-          </div>
+          {this.state.joinSuccessMessage}
 
+         
+          <Button>Create event</Button>
+          <Button>Message group</Button>
         </div>
 
         {/* ----------GROUP BODY----------------- */}
@@ -135,4 +99,39 @@ const mapStateToProps = (state) => {
   }
 }
 
-export default connect(mapStateToProps, { fetchGroup } )(Group);
+const styles = {
+  header: { height:"400px", borderBottom: "1px solid rgba(0,0,0,.12)" },
+  row: { display:'flex' },
+  column: { flex: '50%'},
+  image: {
+    height: "300px",
+    border: "1px solid rgba(0,0,0,.12)",
+    borderRadius: "30px",
+    marginTop: "15px",
+    marginLeft: "200px"
+  },
+  memberList: {
+    display: 'grid',
+    "grid-template-columns": "100px 100px 100px",
+    "grid-gap": "10px"
+,   "background-color": "#fff",
+    color: "#444"
+  },
+  joinGroup: {
+    marginTop: "30px",
+    backgroundColor: "#5AC0D8"
+  },
+  emphasis: {
+    color: "#5AC0D8",
+    fontWeight: 'bold'
+  }
+}
+
+Group.propTypes = {
+  classes: PropTypes.object.isRequired,
+};
+
+export default connect(mapStateToProps, { fetchGroup } )(withStyles(styles)(Group));
+
+
+
