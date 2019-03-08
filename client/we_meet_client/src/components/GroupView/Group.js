@@ -15,7 +15,7 @@ class Group extends Component {
   }
 
   componentDidMount() {
-    let id =  this.props.location.state.group.id;
+    let id =  this.props.match.params.id;
     this.props.fetchGroup(id);
     this.getMemberList()
   }
@@ -29,7 +29,7 @@ class Group extends Component {
   }
 
   getMemberList = async() => {
-    let id =  this.props.location.state.group.id;
+    let id =  this.props.match.params.id;
     const response = await axios.get(`http://localhost:3000/groups/${id}/memberships`) 
     this.setState({groupMembersList : response.data })
   }
@@ -39,6 +39,12 @@ class Group extends Component {
     let membersArray =  this.props.members
     let eventsArray = this.props.group.future_events
     let groupOrganizer = this.props.group.organizer
+    let currentUserId = this.props.currentUser.attributes.id
+    let createEventLink 
+
+    if(groupOrganizer){
+      createEventLink = currentUserId === groupOrganizer.id ? <Button component={Link} to="/create-event">Create event</Button> : null
+    }
 
     return (
       <div>
@@ -61,7 +67,8 @@ class Group extends Component {
           </div>
           
           {this.state.joinSuccessMessage}
-          <Button component={Link} to="/create-event">Create event</Button>
+          { createEventLink }
+
           <Button>Message group</Button>
         </div>
 
@@ -93,7 +100,8 @@ class Group extends Component {
 const mapStateToProps = (state) => {
   return { 
     group: state.group, 
-    members: state.group.members
+    members: state.group.members,
+    currentUser: state.reduxTokenAuth.currentUser
   }
 }
 

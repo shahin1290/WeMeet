@@ -1,7 +1,13 @@
 import React, { Component } from "react";
 import axios from "axios";
-import Button from '@material-ui/core/Button';
 import { connect } from 'react-redux';
+import Card from '@material-ui/core/Card';
+import PropTypes from 'prop-types';
+import { withStyles } from '@material-ui/core/styles';
+import CardContent from '@material-ui/core/CardContent';
+import Typography from '@material-ui/core/Typography';
+import { Link } from 'react-router-dom';
+
 
 const mapStateToProps = (state) => {
   return {
@@ -33,30 +39,57 @@ class UserProfileView extends Component {
   }
 
   render() {
+    const { classes } = this.props;
     let groups = this.state.user.organized_groups;
     let groupList = groups.map(group => {
       return (
         <div key={group.id}>
-          <h3>
-            {group.name}
-          </h3>
+          <Link to={`/groups/${group.id}`} className={classes.link}>
+            <p>{group.name}</p>
+          </Link>
         </div>
       )
     })
     return (
-      <>
-
-          <h1>Hello {this.state.user.name}</h1>
-
-          <h2>You are the organizer of {groups.length} groups</h2>
-          
-
+      <div className={classes.root}>
+        <Card className={classes.card}>
+        <CardContent>
+          <Typography variant="h4">
+            <div className={classes.heading}>{this.state.user.name}</div>
+            </Typography>
+            <Typography variant="h5">
+            <div className={classes.heading}>Organizer of {groups.length} groups</div>
+          </Typography>
           {groupList}
-
-
-      </>
+          </CardContent>
+        </Card>
+      </div>
     );
   }
 }
 
-export default connect(mapStateToProps)(UserProfileView);
+const styles = {
+  heading: {
+    borderBottom : '2px solid #dbd2d2',
+    padding: '10px'
+  },
+  card: {
+    maxWidth: 650,
+    marginBottom: 12,
+    margin:' 50px auto',
+    
+  },
+  link: {
+    textDecoration: 'none',
+    '&:hover': {
+      textDecoration: 'underline'
+    }
+  }
+};
+
+UserProfileView.propTypes = {
+  classes: PropTypes.object.isRequired,
+};
+
+
+export default connect(mapStateToProps)(withStyles(styles)(UserProfileView));
