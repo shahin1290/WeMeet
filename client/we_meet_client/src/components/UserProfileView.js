@@ -1,6 +1,6 @@
 import React, { Component } from "react";
 import axios from "axios";
-
+import Button from '@material-ui/core/Button';
 import { Link } from 'react-router-dom';
 import { connect } from 'react-redux';
 
@@ -41,6 +41,7 @@ class UserProfileView extends Component {
           <h3>
             {group.name}
           </h3>
+          <Button>Create event</Button>
         </div>
       )
     })
@@ -50,6 +51,8 @@ class UserProfileView extends Component {
           <h1>Hello {this.state.user.name}</h1>
 
           <h2>You are the organizer of {groups.length} groups</h2>
+          
+
           {groupList}
 
 

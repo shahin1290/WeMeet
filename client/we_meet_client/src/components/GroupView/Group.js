@@ -59,11 +59,8 @@ class Group extends Component {
               </div>
           </div>
           
-
           {this.state.joinSuccessMessage}
 
-         
-          <Button>Create event</Button>
           <Button>Message group</Button>
         </div>
 
