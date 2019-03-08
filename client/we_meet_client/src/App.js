@@ -9,6 +9,7 @@ import CategoryView from './components/CategoryView';
 import Group from './components/GroupView/Group';
 import Event from './components/EventView/Event';
 import CreateGroup from './components/CreateGroup';
+import CreateEvent from './components/CreateEvent';
 import UserProfileView from './components/UserProfileView';
 
 
@@ -26,6 +27,7 @@ class App extends Component {
             <Route  path='/groups/:id' component={Group}></Route>
             <Route  path='/categories/:id' component={CategoryView}></Route>
             <Route  path='/create-group' component={CreateGroup}></Route>
+            <Route  path='/create-event' component={CreateEvent}></Route>
             <Route  path='/users/:id' component={UserProfileView}></Route>
           </Switch>
         </div>

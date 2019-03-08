@@ -1,7 +1,6 @@
 import React, { Component } from "react";
 import axios from "axios";
 import Button from '@material-ui/core/Button';
-import { Link } from 'react-router-dom';
 import { connect } from 'react-redux';
 
 const mapStateToProps = (state) => {
@@ -41,7 +40,6 @@ class UserProfileView extends Component {
           <h3>
             {group.name}
           </h3>
-          <Button>Create event</Button>
         </div>
       )
     })

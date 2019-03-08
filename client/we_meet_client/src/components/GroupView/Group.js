@@ -6,6 +6,7 @@ import Button from '@material-ui/core/Button';
 import  SimpleCard  from "./FutureEventCard";
 import PropTypes from 'prop-types';
 import { withStyles } from '@material-ui/core/styles';
+import { Link } from 'react-router-dom';
 
 class Group extends Component {
   state = {
@@ -60,7 +61,7 @@ class Group extends Component {
           </div>
           
           {this.state.joinSuccessMessage}
-
+          <Button component={Link} to="/create-event">Create event</Button>
           <Button>Message group</Button>
         </div>
 

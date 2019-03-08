@@ -1,6 +1,6 @@
 import React, { Component } from 'react';
 import axios from "axios";
-
+import { connect } from 'react-redux';
 
 class CreateGroup extends Component {
   state = {
@@ -22,8 +22,8 @@ class CreateGroup extends Component {
 
   createEvent = async(e) => {
     e.preventDefault();
-    const group = {
-      name: this.state.name,
+    const event = {
+      title: this.state.title,
       description: this.state.description,
       location: this.state.location,
       date: this.state.date,
@@ -37,8 +37,8 @@ class CreateGroup extends Component {
       'expiry': localStorage.getItem('expiry'),
       'uid': localStorage.getItem('uid'),
     }
- 
-    let response = await axios.post('http://localhost:3000/events', { event }, { headers: credentials})
+    let id = this.props.group.id
+    let response = await axios.post(`http://localhost:3000/groups/${id}/events`, { event }, { headers: credentials})
     this.setState({ navBarNotification: response.data.message })
 
   }
@@ -46,65 +46,35 @@ class CreateGroup extends Component {
   render() {
      return (
       <div>
+        { this.state.navBarNotification }
       <form onSubmit={this.createEvent}>
         <h1>Create an Event</h1>
-
           <div>
             <label>Title</label>
-            <input
-              type="text"
-              name="title"
-              onChange={this.onChange}>
-            </input>
+            <input type="text" name="title" onChange={this.onChange} /> 
           </div>
 
           <div>
             <label>Description</label>
-            <textarea
-              type="textarea"
-              name="description"
-              onChange={this.onChange}>
-            </textarea>
+            <textarea type="text" name="description" onChange={this.onChange}></textarea>
           </div>
 
           <div>
             <label>Location</label>
-            <textarea
-              type="text"
-              name="loation"
-              onChange={this.onChange}>
-            </textarea>
+            <input type="text" name="location" onChange={this.onChange} />
           </div>
 
           <div>
             <label>Date</label>
-            <textarea
-              type="text"
-              name="date"
-              onChange={this.onChange}>
-            </textarea>
+            <input type="text" name="date" onChange={this.onChange} />
           </div>
 
           <div>
             <label>Time</label>
-            <textarea
-              type="text"
-              name="time"
-              onChange={this.onChange}>
-            </textarea>
+            <input type="text" name="time" onChange={this.onChange} />
           </div>
 
-
-          <div>
-            <label>Location</label>
-            <input
-              type="text"
-              name="location"
-              onChange={this.onChange}>
-            </input>
-          </div>
-
-          <input type="submit" value="Submit"></input>
+          <input type="submit" value="Submit" />
       </form>
       {this.state.navBarNotification}
       </div>
@@ -112,5 +82,12 @@ class CreateGroup extends Component {
   }
 }
 
-export default CreateGroup
+const mapStateToProps = (state) => {
+  return { 
+    group: state.group
+  }
+}
+
+export default connect(mapStateToProps)(CreateGroup);
+
   
