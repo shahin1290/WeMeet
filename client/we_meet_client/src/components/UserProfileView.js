@@ -1,5 +1,4 @@
 import React, { Component } from "react";
-import axios from "axios";
 import { connect } from 'react-redux';
 import Card from '@material-ui/core/Card';
 import PropTypes from 'prop-types';
@@ -7,6 +6,7 @@ import { withStyles } from '@material-ui/core/styles';
 import CardContent from '@material-ui/core/CardContent';
 import Typography from '@material-ui/core/Typography';
 import { Link } from 'react-router-dom';
+import base_api from "../util/base_api";
 
 
 const mapStateToProps = (state) => {
@@ -33,7 +33,7 @@ class UserProfileView extends Component {
   async getUser(id) {
     const credentials = { 'access-token': localStorage.getItem('access-token'), 'token-type': localStorage.getItem('token-type'), 'client': localStorage.getItem('client'), 'expiry': localStorage.getItem('expiry'), 'uid': localStorage.getItem('uid'), }
 
-    const response = await axios.get(`http://localhost:3000/users/${id}`, { headers: credentials })
+    const response = await base_api.get(`/users/${id}`, { headers: credentials })
     const user = response.data.user
     this.setState({ user });
   }

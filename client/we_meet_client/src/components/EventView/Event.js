@@ -2,6 +2,7 @@ import React, { Component } from "react";
 import axios from "axios";
 import { Link } from 'react-router-dom';
 import moment from 'moment'
+import base_api from "../../util/base_api";
 
 
 class EventView extends Component {
@@ -30,7 +31,7 @@ class EventView extends Component {
   }
 
   async getEvent(id) {
-    const response = await axios.get(`http://localhost:3000/events/${id}`)
+    const response = await base_api.get(`/events/${id}`)
     const event = response.data.event
     this.setState({ event });
   }
@@ -38,7 +39,7 @@ class EventView extends Component {
   rsvpToEvent = async() => {
     const credentials = { 'access-token': localStorage.getItem('access-token'), 'token-type': localStorage.getItem('token-type'), 'client': localStorage.getItem('client'), 'expiry': localStorage.getItem('expiry'), 'uid': localStorage.getItem('uid'), }
     const id = this.props.match.params.id
-    await axios.post(`http://localhost:3000//events/${id}/attendees`, {}, { headers: credentials }) 
+    await base_api.post(`/events/${id}/attendees`, {}, { headers: credentials }) 
     this.getEvent(id);
   }
 

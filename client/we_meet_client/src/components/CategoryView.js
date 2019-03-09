@@ -1,5 +1,4 @@
 import React, { Component } from "react";
-import axios from "axios";
 import { Link } from 'react-router-dom';
 import PropTypes from 'prop-types';
 import { withStyles } from '@material-ui/core/styles';
@@ -10,6 +9,7 @@ import CardContent from '@material-ui/core/CardContent';
 import CardMedia from '@material-ui/core/CardMedia';
 import Button from '@material-ui/core/Button';
 import Typography from '@material-ui/core/Typography';
+import base_api from "../util/base_api";
 
 const styles = {
   root: {
@@ -55,7 +55,7 @@ const styles = {
   }
 
    async getCategoryGroups(id) {
-    const response = await axios.get(`http://localhost:3000/categories/${id}`);
+    const response = await base_api.get(`/categories/${id}`);
     const category = response.data.category;
     this.setState({ category });
   }

@@ -1,5 +1,4 @@
 import React, { Component } from "react";
-import axios from "axios";
 import { Link } from 'react-router-dom';
 import PropTypes from 'prop-types';
 import { withStyles } from '@material-ui/core/styles';
@@ -10,6 +9,7 @@ import CardContent from '@material-ui/core/CardContent';
 import CardMedia from '@material-ui/core/CardMedia';
 import Button from '@material-ui/core/Button';
 import Typography from '@material-ui/core/Typography';
+import base_api from "../util/base_api";
 
 const styles = {
   root: {
@@ -45,7 +45,7 @@ class ExploreCategories extends Component {
   }
 
   async getCategories() {
-    const response = await axios.get("http://localhost:3000/categories")
+    const response = await base_api.get("/categories")
     const categories = response.data.categories;
     this.setState({ categories });
   }
@@ -82,7 +82,7 @@ class ExploreCategories extends Component {
 
     return (
       <div>
-        <h1 className={classes.heading}>Explore by category</h1>
+        <h1 className={classes.heading}>Explore by categories</h1>
         <div className={classes.root}>
           {categoriesList}
         </div>

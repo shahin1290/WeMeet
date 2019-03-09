@@ -1,7 +1,7 @@
 import { generateAuthActions } from 'redux-token-auth'
 
  const config = {
-  authUrl: 'http://localhost:3000/auth',
+  authUrl: 'https://afternoon-inlet-43832.herokuapp.com/auth',
   userAttributes: {
 
      name: 'name',

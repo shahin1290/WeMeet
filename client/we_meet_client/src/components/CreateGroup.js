@@ -1,5 +1,6 @@
 import React, { Component } from 'react';
 import axios from "axios";
+import base_api from '../util/base_api';
 
 
 class CreateGroup extends Component {
@@ -18,7 +19,7 @@ class CreateGroup extends Component {
   }
 
   async getCategories() {
-    const response = await axios.get("http://localhost:3000/categories")
+    const response = await base_api.get("/categories")
     const categories = response.data.categories
     this.setState({ categories });
   }
@@ -43,7 +44,7 @@ class CreateGroup extends Component {
       'uid': localStorage.getItem('uid'),
     }
  
-    let response = await axios.post('http://localhost:3000/groups', { group }, { headers: credentials})
+    let response = await base_api.post('/groups', { group }, { headers: credentials})
     this.setState({ navBarNotification: response.data.message })
 
   }

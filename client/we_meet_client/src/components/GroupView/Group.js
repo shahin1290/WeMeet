@@ -7,6 +7,7 @@ import  SimpleCard  from "./FutureEventCard";
 import PropTypes from 'prop-types';
 import { withStyles } from '@material-ui/core/styles';
 import { Link } from 'react-router-dom';
+import base_api from "../../util/base_api";
 
 class Group extends Component {
   state = {
@@ -23,14 +24,14 @@ class Group extends Component {
   joinGroup = async() => {
     const credentials = { 'access-token': localStorage.getItem('access-token'), 'token-type': localStorage.getItem('token-type'), 'client': localStorage.getItem('client'), 'expiry': localStorage.getItem('expiry'), 'uid': localStorage.getItem('uid'), }
     let id = this.props.group.id
-    await axios.post(`http://localhost:3000/groups/${id}/memberships`, {}, { headers: credentials }) 
+    await base_api.post(`/groups/${id}/memberships`, {}, { headers: credentials }) 
     this.props.fetchGroup(id);
     this.getMemberList()
   }
 
   getMemberList = async() => {
     let id =  this.props.match.params.id;
-    const response = await axios.get(`http://localhost:3000/groups/${id}/memberships`) 
+    const response = await base_api.get(`/groups/${id}/memberships`) 
     this.setState({groupMembersList : response.data })
   }
 

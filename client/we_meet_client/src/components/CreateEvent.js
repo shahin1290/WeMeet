@@ -1,6 +1,7 @@
 import React, { Component } from 'react';
 import axios from "axios";
 import { connect } from 'react-redux';
+import base_api from '../util/base_api';
 
 class CreateGroup extends Component {
   state = {
@@ -38,7 +39,7 @@ class CreateGroup extends Component {
       'uid': localStorage.getItem('uid'),
     }
     let id = this.props.group.id
-    let response = await axios.post(`http://localhost:3000/groups/${id}/events`, { event }, { headers: credentials})
+    let response = await base_api.post(`/groups/${id}/events`, { event }, { headers: credentials})
     this.setState({ navBarNotification: response.data.message })
 
   }
