@@ -11,57 +11,25 @@ import Button from '@material-ui/core/Button';
 import Typography from '@material-ui/core/Typography';
 import base_api from "../../util/base_api";
 
-const styles = {
-  root: {
-    maxWidth: '1000px',
-    margin: '0 auto',
-    display: 'grid',
-    'grid-template-columns': '1fr 1fr 1fr',
-    'grid-gap': '30px',
-    'align-items': 'stretch'
-  },
-  heading:{
-    
-    margin: '0 auto 50px auto',
-    height: '200px',
-    'text-align': 'center',
-    'background-image': 'url("../assets/images/hero.jpg")',
-    color: 'white',
-    'font-weight': 'bold',
-    'font-size': '50px'
-  },
-  card: {
-    maxWidth: 345,
-  },
-  media: {
-    height: 140,
-  },
-};
-
-
- class CategoryView extends Component {
-    state = {
-      category: {
-        name: '',
-        groups: []
-      }
+class CategoryView extends Component {
+  state = {
+    category: {
+      name: '',
+      groups: []
     }
-  
-
-   componentDidMount() {
-    // Get the number from url
+  }
+  componentDidMount() {
     let id =  this.props.location.state.category.id;
     this.getCategoryGroups(id);
   }
 
-   async getCategoryGroups(id) {
+  async getCategoryGroups(id) {
     const response = await base_api.get(`/categories/${id}`);
     const category = response.data.category;
     this.setState({ category });
   }
 
-
-   render() {
+  render() {
     let groups = this.state.category.groups;
     const { classes } = this.props;
     let groupsList = groups.map(group => {
@@ -101,6 +69,33 @@ const styles = {
     );
   }
 }
+
+const styles = {
+  root: {
+    maxWidth: '1000px',
+    margin: '0 auto',
+    display: 'grid',
+    'grid-template-columns': '1fr 1fr 1fr',
+    'grid-gap': '30px',
+    'align-items': 'stretch'
+  },
+  heading:{
+    
+    margin: '0 auto 50px auto',
+    height: '200px',
+    'text-align': 'center',
+    'background-image': 'url("../assets/images/hero.jpg")',
+    color: 'white',
+    'font-weight': 'bold',
+    'font-size': '50px'
+  },
+  card: {
+    maxWidth: 345,
+  },
+  media: {
+    height: 140,
+  },
+};
 
 CardMedia.propTypes = {
   classes: PropTypes.object.isRequired,

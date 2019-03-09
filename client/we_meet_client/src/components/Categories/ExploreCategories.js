@@ -9,28 +9,17 @@ import CardContent from '@material-ui/core/CardContent';
 import CardMedia from '@material-ui/core/CardMedia';
 import Button from '@material-ui/core/Button';
 import Typography from '@material-ui/core/Typography';
-import base_api from "../../util/base_api";
+import { fetchCategories } from '../../actions/categoriesAction'
+import { connect } from 'react-redux';
 
 class ExploreCategories extends Component {
-  constructor(props) {
-    super(props);
-    this.state = {
-      categories: []
-    };
-  }
 
   componentDidMount() {
-    this.getCategories();
-  }
-
-  async getCategories() {
-    const response = await base_api.get("/categories")
-    const categories = response.data.categories;
-    this.setState({ categories });
+    this.props.fetchCategories()
   }
 
   render() {
-    let categories = this.state.categories;
+    let categories = this.props.categories;
     const { classes } = this.props;
     let categoriesList = categories.map(category => {
       return (
@@ -91,8 +80,14 @@ const styles = {
   },
 };
 
+const mapStateToProps = (state) => {
+  return { 
+    categories: state.categories
+  }
+}
+
 CardMedia.propTypes = {
   classes: PropTypes.object.isRequired,
 };
 
-export default withStyles(styles)(ExploreCategories);
+export default connect(mapStateToProps, { fetchCategories } )(withStyles(styles)(ExploreCategories));
