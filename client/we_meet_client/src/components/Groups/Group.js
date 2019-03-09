@@ -1,5 +1,4 @@
 import React, { Component } from "react";
-import axios from "axios";
 import { fetchGroup } from '../../actions/groupAction'
 import { connect } from 'react-redux';
 import Button from '@material-ui/core/Button';

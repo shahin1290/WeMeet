@@ -1,6 +1,4 @@
-import { FETCH_GROUP } from '../actions/groupAction';
-import { FETCH_GROUP_MEMBERS } from '../actions/groupAction';
-import initialState from './initialState';
+import { FETCH_GROUP } from '../actions/groupAction'
 
 export default (state = {}, action) => {
   switch (action.type) {

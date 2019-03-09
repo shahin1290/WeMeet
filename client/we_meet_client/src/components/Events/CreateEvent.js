@@ -1,9 +1,8 @@
 import React, { Component } from 'react';
-import axios from "axios";
 import { connect } from 'react-redux';
-import base_api from '../../util/base_api';
+import { createEvent } from '../../actions/eventsAction'
 
-class CreateGroup extends Component {
+class CreateEvent extends Component {
   state = {
     title: '',
     description: '',
@@ -13,10 +12,6 @@ class CreateGroup extends Component {
     navBarNotification: ''
   }
   
-  componentDidMount() {
-
-  }
-
   onChange =(e) => {
     this.setState({ [e.target.name]: e.target.value })
   }
@@ -28,26 +23,17 @@ class CreateGroup extends Component {
       description: this.state.description,
       location: this.state.location,
       date: this.state.date,
-      time: this.state.time,
-      
+      time: this.state.time, 
     }
-    const credentials = {
-      'access-token': localStorage.getItem('access-token'),
-      'token-type': localStorage.getItem('token-type'),
-      'client': localStorage.getItem('client'),
-      'expiry': localStorage.getItem('expiry'),
-      'uid': localStorage.getItem('uid'),
-    }
+    
     let id = this.props.group.id
-    let response = await base_api.post(`/groups/${id}/events`, { event }, { headers: credentials})
-    this.setState({ navBarNotification: response.data.message })
-
+    this.props.createEvent(event, id)
   }
 
   render() {
      return (
       <div>
-        { this.state.navBarNotification }
+        { this.props.notification }
       <form onSubmit={this.createEvent}>
         <h1>Create an Event</h1>
           <div>
@@ -77,7 +63,6 @@ class CreateGroup extends Component {
 
           <input type="submit" value="Submit" />
       </form>
-      {this.state.navBarNotification}
       </div>
     )
   }
@@ -85,10 +70,9 @@ class CreateGroup extends Component {
 
 const mapStateToProps = (state) => {
   return { 
-    group: state.group
+    group: state.group,
+    notification: state.notification
   }
 }
 
-export default connect(mapStateToProps)(CreateGroup);
-
-  
+export default connect(mapStateToProps, { createEvent })(CreateEvent);

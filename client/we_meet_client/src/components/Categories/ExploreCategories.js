@@ -11,27 +11,6 @@ import Button from '@material-ui/core/Button';
 import Typography from '@material-ui/core/Typography';
 import base_api from "../../util/base_api";
 
-const styles = {
-  root: {
-    maxWidth: '1000px',
-    margin: '0 auto',
-    display: 'grid',
-    'grid-template-columns': '1fr 1fr 1fr',
-    'grid-gap': '30px',
-    'align-items': 'stretch'
-  },
-  heading:{
-    maxWidth: '1000px',
-    margin: '50px auto',
-  },
-  card: {
-    maxWidth: 345,
-  },
-  media: {
-    height: 140,
-  },
-};
-
 class ExploreCategories extends Component {
   constructor(props) {
     super(props);
@@ -90,6 +69,27 @@ class ExploreCategories extends Component {
     );
   }
 }
+
+const styles = {
+  root: {
+    maxWidth: '1000px',
+    margin: '0 auto',
+    display: 'grid',
+    'grid-template-columns': '1fr 1fr 1fr',
+    'grid-gap': '30px',
+    'align-items': 'stretch'
+  },
+  heading:{
+    maxWidth: '1000px',
+    margin: '50px auto',
+  },
+  card: {
+    maxWidth: 345,
+  },
+  media: {
+    height: 140,
+  },
+};
 
 CardMedia.propTypes = {
   classes: PropTypes.object.isRequired,

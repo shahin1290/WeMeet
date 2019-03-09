@@ -11,7 +11,8 @@ const initialState = {
     },
   },
   events : [],
-  group: {}
+  group: {},
+  notification: {}
 }
 
 export default initialState
