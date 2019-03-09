@@ -1,16 +1,16 @@
 import React, { Component } from 'react';
 import { BrowserRouter } from 'react-router-dom'
 import { Switch, Route } from 'react-router-dom'
-import HomePage from './components/HomePage';
-import Login from './components/Login';
-import Signup from './components/Signup';
-import NavigationBar from './components/NavigationBar';
-import CategoryView from './components/CategoryView';
-import Group from './components/GroupView/Group';
-import Event from './components/EventView/Event';
-import CreateGroup from './components/CreateGroup';
-import CreateEvent from './components/CreateEvent';
-import UserProfileView from './components/UserProfileView';
+import HomePage from './components/Home/Home';
+import Login from './components/Auth/Login';
+import Signup from './components/Auth/Signup';
+import NavigationBar from './components/Home/NavigationBar';
+import CategoryView from './components/Categories/CategoryView';
+import Group from './components/Groups/Group';
+import Event from './components/Events/Event';
+import CreateGroup from './components/Groups/CreateGroup';
+import CreateEvent from './components/Events/CreateEvent';
+import UserProfileView from './components/Home/UserProfileView';
 
 
 class App extends Component {

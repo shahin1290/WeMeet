@@ -9,7 +9,7 @@ import CardContent from '@material-ui/core/CardContent';
 import CardMedia from '@material-ui/core/CardMedia';
 import Button from '@material-ui/core/Button';
 import Typography from '@material-ui/core/Typography';
-import base_api from "../util/base_api";
+import base_api from "../../util/base_api";
 
 const styles = {
   root: {
@@ -21,14 +21,8 @@ const styles = {
     'align-items': 'stretch'
   },
   heading:{
-    
-    margin: '0 auto 50px auto',
-    height: '200px',
-    'text-align': 'center',
-    'background-image': 'url("../assets/images/hero.jpg")',
-    color: 'white',
-    'font-weight': 'bold',
-    'font-size': '50px'
+    maxWidth: '1000px',
+    margin: '50px auto',
   },
   card: {
     maxWidth: 345,
@@ -38,43 +32,38 @@ const styles = {
   },
 };
 
-
- class CategoryView extends Component {
-    state = {
-      category: {
-        name: '',
-        groups: []
-      }
-    }
-  
-
-   componentDidMount() {
-    // Get the number from url
-    let id =  this.props.location.state.category.id;
-    this.getCategoryGroups(id);
+class ExploreCategories extends Component {
+  constructor(props) {
+    super(props);
+    this.state = {
+      categories: []
+    };
   }
 
-   async getCategoryGroups(id) {
-    const response = await base_api.get(`/categories/${id}`);
-    const category = response.data.category;
-    this.setState({ category });
+  componentDidMount() {
+    this.getCategories();
   }
 
+  async getCategories() {
+    const response = await base_api.get("/categories")
+    const categories = response.data.categories;
+    this.setState({ categories });
+  }
 
-   render() {
-    let groups = this.state.category.groups;
+  render() {
+    let categories = this.state.categories;
     const { classes } = this.props;
-    let groupsList = groups.map(group => {
+    let categoriesList = categories.map(category => {
       return (
         <Card className={classes.card}>
-          <CardActionArea component={Link} to={{pathname: `/groups/${group.id}`, state: {group}}}>
+          <CardActionArea component={Link} to={{pathname: `/categories/${category.id}`, state: {category}}}>
             <CardMedia
               className={classes.media}
-              image="../assets/images/frogs.jpg"
+              image={`./assets/images/${category.name.toLowerCase()}.png`}
             />
             <CardContent>
               <Typography gutterBottom variant="h5" component="h2">
-                {group.name}
+                {category.name}
               </Typography>
             </CardContent>
           </CardActionArea>
@@ -91,11 +80,11 @@ const styles = {
       )
     });
 
-     return (
+    return (
       <div>
-        <div className={classes.heading}>{this.state.category.name}</div>
+        <h1 className={classes.heading}>Explore by categories</h1>
         <div className={classes.root}>
-          {groupsList}
+          {categoriesList}
         </div>
       </div>
     );
@@ -106,4 +95,4 @@ CardMedia.propTypes = {
   classes: PropTypes.object.isRequired,
 };
 
-export default withStyles(styles)(CategoryView);
+export default withStyles(styles)(ExploreCategories);

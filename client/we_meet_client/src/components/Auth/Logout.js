@@ -1,6 +1,6 @@
 import React, { Component } from 'react'
 import { connect } from 'react-redux'
-import { signOutUser } from '../redux-token-auth-config'
+import { signOutUser } from '../../redux-token-auth-config'
 import  Button  from "@material-ui/core/Button"
 
 class Logout extends Component {

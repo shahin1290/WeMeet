@@ -1,7 +1,7 @@
 import React, { Component } from 'react';
 import axios from "axios";
 import { connect } from 'react-redux';
-import base_api from '../util/base_api';
+import base_api from '../../util/base_api';
 
 class CreateGroup extends Component {
   state = {

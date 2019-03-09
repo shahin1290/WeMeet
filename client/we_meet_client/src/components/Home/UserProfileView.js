@@ -6,7 +6,7 @@ import { withStyles } from '@material-ui/core/styles';
 import CardContent from '@material-ui/core/CardContent';
 import Typography from '@material-ui/core/Typography';
 import { Link } from 'react-router-dom';
-import base_api from "../util/base_api";
+import base_api from "../../util/base_api";
 
 
 const mapStateToProps = (state) => {

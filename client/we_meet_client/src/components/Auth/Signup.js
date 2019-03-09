@@ -1,39 +1,36 @@
 import React, { Component } from 'react';
+import axios from "axios";
 import FormControl  from "@material-ui/core/FormControl";
 import  InputLabel  from "@material-ui/core/InputLabel";
 import  Input  from "@material-ui/core/Input";
 import  Button  from "@material-ui/core/Button";
-import { connect } from 'react-redux'
-import { signInUser } from '../redux-token-auth-config'
+import { connect } from 'react-redux';
+import { registerUser } from '../../redux-token-auth-config';
 
 
-class Login extends Component {
+class Signup extends Component {
   state = {
+    name: '',
     email: '',
     password: '',
-    headerMessage: ''
+    password_confirmation: ''
   }
 
   onChange = (e) => {
     this.setState({ [e.target.name]: e.target.value })
   }
 
-  handleLogin = (e)=> {
+  handleSignup= (e) => {
     e.preventDefault()
-    const { signInUser } = this.props
+    const { registerUser } = this.props
     const {
+      name,
       email,
+      password_confirmation,
       password,
     } = this.state
-    signInUser({ email, password })
-    .then(() => {
-      this.setState({ headerMessage: `You are logged in` })
-    })
-    .catch((error) => {      
-      this.setState({ headerMessage: `That did not fly....` })
-    })
+    registerUser({ name, email, password_confirmation, password }) // <-<-<-<-<- here's the important part <-<-<-<-<-
   }
-
 
   render() {
     return (
@@ -46,7 +43,12 @@ class Login extends Component {
         }}
       >
         <form style={{ width: "35%" }}>
-          <h1>Log In Form</h1>
+          <h1>Sign Up Form</h1>
+          <FormControl margin="normal" fullWidth>
+            <InputLabel htmlFor="name">Name</InputLabel>
+            <Input id="name" name="name" onChange={this.onChange}/>
+          </FormControl>
+
           <FormControl margin="normal" fullWidth>
             <InputLabel htmlFor="email">Email</InputLabel>
             <Input id="email" name="email" onChange={this.onChange}/>
@@ -57,12 +59,16 @@ class Login extends Component {
             <Input id="password" name="password" type="password" onChange={this.onChange}/>
           </FormControl>
 
-          <Button onClick={this.handleLogin} variant="contained" color="primary" size="medium">
-            Submit
+          <FormControl margin="normal" fullWidth>
+            <InputLabel htmlFor="password_confirmation">password confirmation</InputLabel>
+            <Input id="password_confirmation" name="password_confirmation" type="password" onChange={this.onChange}/>
+          </FormControl>
+
+          <Button onClick={this.handleSignup} variant="contained" color="primary" size="medium">
+              Submit
           </Button>
           {/* <input type="submit"/> */}
         </form>
-        { this.state.headerMessage}
       </div>
     );
   }
@@ -70,5 +76,5 @@ class Login extends Component {
 
 export default connect(
   null,
-  { signInUser },
-)(Login)
+  { registerUser },
+)(Signup)
