@@ -10,6 +10,7 @@ import categoryReducer from './categoryReducer'
 import rsvpReducer from './rsvpReducer';
 import postMembershipsReducer from './postMembershipsReducer';
 import getMembershipsReducer from './getMembershipsReducer';
+import userReducer from './userReducer';
 
 const rootReducer = combineReducers({
   reduxTokenAuth: reduxTokenAuthReducer,
@@ -22,7 +23,8 @@ const rootReducer = combineReducers({
   category: categoryReducer,
   postRsvpNotification: rsvpReducer,
   postMembershipsNotification: postMembershipsReducer,
-  groupMembers: getMembershipsReducer
+  groupMembers: getMembershipsReducer,
+  user: userReducer
 });
 
 export default rootReducer

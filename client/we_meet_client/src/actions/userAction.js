@@ -2,6 +2,8 @@ import base_api from '../util/base_api'
 export const POST_RSVP = "POST_RSVP";
 export const POST_MEMBERSHIPS = "POST_MEMBERSHIPS";
 export const GET_MEMBERSHIPS = "GET_MEMBERSHIPS";
+export const GET_USER = "GET_USER";
+
 
 const credentials = {
     'access-token': localStorage.getItem('access-token'),
@@ -24,4 +26,9 @@ export const postMemberships = (id) => async dispatch => {
 export const getMemberships = (id) => async dispatch => {
     const response = await base_api.get(`/groups/${id}/memberships`, { }, { headers: credentials})
     dispatch({ type: 'GET_MEMBERSHIPS', groupMembers: response.data })
+}
+
+export const getUser = (id) => async dispatch => {
+    const response = await base_api.get(`/users/${id}`, { headers: credentials })
+    dispatch({ type: 'GET_USER', user: response.data.user })
 }

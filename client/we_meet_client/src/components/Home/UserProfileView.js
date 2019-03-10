@@ -6,58 +6,40 @@ import { withStyles } from '@material-ui/core/styles';
 import CardContent from '@material-ui/core/CardContent';
 import Typography from '@material-ui/core/Typography';
 import { Link } from 'react-router-dom';
-import base_api from "../../util/base_api";
-
-
-const mapStateToProps = (state) => {
-  return {
-    currentUser: state.reduxTokenAuth.currentUser
-  }
-}
+import { getUser } from '../../actions/userAction'
 
 class UserProfileView extends Component {
 
-  constructor(props) {
-    super(props);
-    this.state = {
-      user: {
-        organized_groups: []
-      }
-    };
-  }
   componentDidMount() {
-    this.getUser(this.props.currentUser.attributes.id)
-  }
-
-  async getUser(id) {
-    const credentials = { 'access-token': localStorage.getItem('access-token'), 'token-type': localStorage.getItem('token-type'), 'client': localStorage.getItem('client'), 'expiry': localStorage.getItem('expiry'), 'uid': localStorage.getItem('uid'), }
-
-    const response = await base_api.get(`/users/${id}`, { headers: credentials })
-    const user = response.data.user
-    this.setState({ user });
+    this.props.getUser(this.props.currentUser.attributes.id)
   }
 
   render() {
     const { classes } = this.props;
-    let groups = this.state.user.organized_groups;
-    let groupList = groups.map(group => {
-      return (
-        <div key={group.id}>
-          <Link to={`/groups/${group.id}`} className={classes.link}>
-            <p>{group.name}</p>
-          </Link>
-        </div>
-      )
-    })
+    let groups = this.props.user.organized_groups;
+    let groupList 
+    
+    if(groups){
+      groupList = groups.map(group => {
+        return (
+          <div key={group.id}>
+            <Link to={`/groups/${group.id}`} className={classes.link}>
+              <p>{group.name}</p>
+            </Link>
+          </div>
+        )
+      })
+    }
+    
     return (
       <div className={classes.root}>
         <Card className={classes.card}>
         <CardContent>
-          <Typography variant="h4">
-            <div className={classes.heading}>{this.state.user.name}</div>
+          <Typography variant="h4"> 
+            <div className={classes.heading}>{this.props.user.name}</div>
             </Typography>
             <Typography variant="h5">
-            <div className={classes.heading}>Organizer of {groups.length} groups</div>
+            <div className={classes.heading}>Organizer of {groups ? groups.length : null} groups</div>
           </Typography>
           {groupList}
           </CardContent>
@@ -90,5 +72,10 @@ UserProfileView.propTypes = {
   classes: PropTypes.object.isRequired,
 };
 
-
-export default connect(mapStateToProps)(withStyles(styles)(UserProfileView));
+const mapStateToProps = (state) => {
+  return {
+    currentUser: state.reduxTokenAuth.currentUser,
+    user: state.user
+  }
+}
+export default connect(mapStateToProps, { getUser })(withStyles(styles)(UserProfileView));
