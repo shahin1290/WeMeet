@@ -1,37 +1,27 @@
 import React, { Component } from "react";
 import { fetchGroup } from '../../actions/groupAction'
+import { postMemberships } from '../../actions/userAction'
+import { getMemberships } from '../../actions/userAction'
 import { connect } from 'react-redux';
 import Button from '@material-ui/core/Button';
 import  SimpleCard  from "./FutureEventCard";
 import PropTypes from 'prop-types';
 import { withStyles } from '@material-ui/core/styles';
 import { Link } from 'react-router-dom';
-import base_api from "../../util/base_api";
 
 class Group extends Component {
-  state = {
-    joinSuccessMessage : '',
-    groupMembersList: []
-  }
 
   componentDidMount() {
     let id =  this.props.match.params.id;
     this.props.fetchGroup(id);
-    this.getMemberList()
+    this.props.getMemberships(id)
   }
 
   joinGroup = async() => {
-    const credentials = { 'access-token': localStorage.getItem('access-token'), 'token-type': localStorage.getItem('token-type'), 'client': localStorage.getItem('client'), 'expiry': localStorage.getItem('expiry'), 'uid': localStorage.getItem('uid'), }
     let id = this.props.group.id
-    await base_api.post(`/groups/${id}/memberships`, {}, { headers: credentials }) 
-    this.props.fetchGroup(id);
-    this.getMemberList()
-  }
-
-  getMemberList = async() => {
-    let id =  this.props.match.params.id;
-    const response = await base_api.get(`/groups/${id}/memberships`) 
-    this.setState({groupMembersList : response.data })
+    await this.props.postMemberships(id)
+    await this.props.fetchGroup(id);
+    await this.props.getMemberships(id)
   }
 
   render() {
@@ -40,10 +30,15 @@ class Group extends Component {
     let eventsArray = this.props.group.future_events
     let groupOrganizer = this.props.group.organizer
     let currentUserId = this.props.currentUser.attributes.id
-    let createEventLink 
+    let groupMembers = this.props.groupMembers
+    let createEventLink, groupMembersList 
 
     if(groupOrganizer){
       createEventLink = currentUserId === groupOrganizer.id ? <Button component={Link} to="/create-event">Create event</Button> : null
+    }
+
+    if(groupMembers){
+      groupMembersList = groupMembers.map(member => <span className={classes.emphasis}> {member.name} </span>)
     }
 
     return (
@@ -60,13 +55,14 @@ class Group extends Component {
                 <p>Group in: <span className={classes.emphasis}>{this.props.group.location}</span></p>
                 <p>Members ({ membersArray ? membersArray.length : null})</p>
                 <div className={classes.memberList}>
-                  { this.state.groupMembersList.map(member => <span className={classes.emphasis}> {member.name} </span>) }
+                  { groupMembersList }
                 </div>
                 <Button onClick = { this.joinGroup } className={ classes.joinGroup}>Join this group</Button>
               </div>
           </div>
           
-          {this.state.joinSuccessMessage}
+          {this.props.notification}
+
           { createEventLink }
 
           <Button>Message group</Button>
@@ -94,14 +90,6 @@ class Group extends Component {
         </div>  
       </div>
     );
-  }
-}
-
-const mapStateToProps = (state) => {
-  return { 
-    group: state.group, 
-    members: state.group.members,
-    currentUser: state.reduxTokenAuth.currentUser
   }
 }
 
@@ -137,7 +125,17 @@ Group.propTypes = {
   classes: PropTypes.object.isRequired,
 };
 
-export default connect(mapStateToProps, { fetchGroup } )(withStyles(styles)(Group));
+const mapStateToProps = (state) => {
+  return { 
+    group: state.group, 
+    members: state.group.members,
+    currentUser: state.reduxTokenAuth.currentUser,
+    notification: state.postMembershipsNotification,
+    groupMembers: state.groupMembers
+  }
+}
+
+export default connect(mapStateToProps, { fetchGroup, postMemberships, getMemberships } )(withStyles(styles)(Group));
 
 
 

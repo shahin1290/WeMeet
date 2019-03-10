@@ -4,10 +4,10 @@ import { createGroup } from '../../actions/groupAction'
 
 class CreateGroup extends Component {
   state = {
-        name: '',
-        description: '',
-        location: '',
-        category_id: '' 
+    name: '',
+    description: '',
+    location: '',
+    category_id: '' 
   }
   
   componentDidMount() {

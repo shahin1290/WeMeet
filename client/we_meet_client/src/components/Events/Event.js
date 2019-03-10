@@ -17,7 +17,6 @@ class EventView extends Component {
     await this.props.fetchEvent(id);
   }
 
-
   render() {
     let attendees = this.props.event.attendees
     let group = this.props.event.group
