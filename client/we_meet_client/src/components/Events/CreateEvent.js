@@ -8,8 +8,7 @@ class CreateEvent extends Component {
     description: '',
     location: '',
     date: '',
-    time: '',
-    navBarNotification: ''
+    time: ''
   }
   
   onChange =(e) => {
@@ -71,7 +70,7 @@ class CreateEvent extends Component {
 const mapStateToProps = (state) => {
   return { 
     group: state.group,
-    notification: state.notification
+    notification: state.postEventNotification
   }
 }
 

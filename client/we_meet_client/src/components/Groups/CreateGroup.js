@@ -1,27 +1,17 @@
 import React, { Component } from 'react';
-import axios from "axios";
-import base_api from '../../util/base_api';
-
+import { connect } from 'react-redux';
+import { createGroup } from '../../actions/groupAction'
 
 class CreateGroup extends Component {
   state = {
         name: '',
         description: '',
         location: '',
-        category_id: '',
-        categories: [],
-        navBarNotification: ''
+        category_id: '' 
   }
   
-
   componentDidMount() {
-    this.getCategories();
-  }
-
-  async getCategories() {
-    const response = await base_api.get("/categories")
-    const categories = response.data.categories
-    this.setState({ categories });
+    this.props.createGroup();
   }
 
   onChange =(e) => {
@@ -36,22 +26,14 @@ class CreateGroup extends Component {
       location: this.state.location,
       category_id: this.state.category_id
     }
-    const credentials = {
-      'access-token': localStorage.getItem('access-token'),
-      'token-type': localStorage.getItem('token-type'),
-      'client': localStorage.getItem('client'),
-      'expiry': localStorage.getItem('expiry'),
-      'uid': localStorage.getItem('uid'),
-    }
- 
-    let response = await base_api.post('/groups', { group }, { headers: credentials})
-    this.setState({ navBarNotification: response.data.message })
+  
+    this.props.createGroup(group)
 
   }
 
   render() {
     let categoryOptions
-    categoryOptions = this.state.categories.map(category => {
+    categoryOptions = this.props.categories.map(category => {
       return (
         <option key={category.id} value={category.id}>{category.name}</option>
       )
@@ -102,11 +84,21 @@ class CreateGroup extends Component {
 
           <input type="submit" value="Submit"></input>
       </form>
-      {this.state.navBarNotification}
+      {this.props.notification}
       </div>
     )
   }
 }
 
-export default CreateGroup
+const mapStateToProps = (state) => {
+  return { 
+    categories: state.categories,
+    notification: state.postGroupNotification
+  }
+}
+
+export default connect(mapStateToProps, { createGroup })(CreateGroup);
+
+
+
   
