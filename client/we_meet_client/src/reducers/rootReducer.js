@@ -5,6 +5,7 @@ import groupReducer from './groupReducer';
 import createEventReducer from './createEventReducer';
 import categoriesReducer from './categoriesReducer';
 import createGroupReducer from './createGroupReducer';
+import categoryReducer from './categoryReducer';
 
 const rootReducer = combineReducers({
   reduxTokenAuth: reduxTokenAuthReducer,
@@ -12,7 +13,8 @@ const rootReducer = combineReducers({
   group: groupReducer,
   postEventNotification: createEventReducer,
   categories: categoriesReducer,
-  postGroupNotification: createGroupReducer
+  postGroupNotification: createGroupReducer,
+  category: categoryReducer
 });
 
 export default rootReducer

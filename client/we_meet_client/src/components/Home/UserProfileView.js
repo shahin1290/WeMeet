@@ -26,7 +26,6 @@ class UserProfileView extends Component {
     };
   }
   componentDidMount() {
-    console.log(this.props.currentUser)
     this.getUser(this.props.currentUser.attributes.id)
   }
 

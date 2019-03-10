@@ -9,61 +9,54 @@ import CardContent from '@material-ui/core/CardContent';
 import CardMedia from '@material-ui/core/CardMedia';
 import Button from '@material-ui/core/Button';
 import Typography from '@material-ui/core/Typography';
-import base_api from "../../util/base_api";
+import { fetchCategory } from '../../actions/categoriesAction'
+import { connect } from 'react-redux';
 
 class CategoryView extends Component {
-  state = {
-    category: {
-      name: '',
-      groups: []
-    }
-  }
   componentDidMount() {
     let id =  this.props.location.state.category.id;
-    this.getCategoryGroups(id);
-  }
-
-  async getCategoryGroups(id) {
-    const response = await base_api.get(`/categories/${id}`);
-    const category = response.data.category;
-    this.setState({ category });
+    this.props.fetchCategory(id);
   }
 
   render() {
-    let groups = this.state.category.groups;
     const { classes } = this.props;
-    let groupsList = groups.map(group => {
-      return (
-        <Card className={classes.card}>
-          <CardActionArea component={Link} to={{pathname: `/groups/${group.id}`, state: {group}}}>
-            <CardMedia
-              className={classes.media}
-              image="../assets/images/frogs.jpg"
-            />
-            <CardContent>
-              <Typography gutterBottom variant="h5" component="h2">
-                {group.name}
-              </Typography>
-            </CardContent>
-          </CardActionArea>
-          <CardActions>
-            <Button size="small" color="primary">
-              Share
-            </Button>
-            <Button size="small" color="primary">
-              Learn More
-            </Button>
-          </CardActions>
-        </Card>
-        
-      )
-    });
-
-     return (
+    let groups = this.props.category.groups
+    let groupList 
+  
+    if(groups){
+      groupList = groups.map(group => {
+        return (
+          <Card className={classes.card}>
+            <CardActionArea component={Link} to={{pathname: `/groups/${group.id}`, state: {group}}}>
+              <CardMedia
+                className={classes.media}
+                image="../assets/images/frogs.jpg"
+              />
+              <CardContent>
+                <Typography gutterBottom variant="h5" component="h2">
+                  {group.name}
+                </Typography>
+              </CardContent>
+            </CardActionArea>
+            <CardActions>
+              <Button size="small" color="primary">
+                Share
+              </Button>
+              <Button size="small" color="primary">
+                Learn More
+              </Button>
+            </CardActions>
+          </Card>
+          
+        )
+      });
+    }
+    
+    return (
       <div>
-        <div className={classes.heading}>{this.state.category.name}</div>
+        <div className={classes.heading}>{this.props.category.name}</div>
         <div className={classes.root}>
-          {groupsList}
+          {groupList}
         </div>
       </div>
     );
@@ -101,4 +94,9 @@ CardMedia.propTypes = {
   classes: PropTypes.object.isRequired,
 };
 
-export default withStyles(styles)(CategoryView);
+const mapStateToProps = (state) => {
+  return { 
+    category: state.category
+  }
+}
+export default connect(mapStateToProps, { fetchCategory } )(withStyles(styles)(CategoryView));
