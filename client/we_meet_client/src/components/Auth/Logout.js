@@ -9,11 +9,12 @@ class Logout extends Component {
     e.preventDefault()
     const { signOutUser } = this.props
     signOutUser()
+    .then(() => {
+      this.props.history.push("/");
+    })
   }
 
   render () {
-    const { signOut } = this
-
     return (
       <div>
         <Button onClick={this.signOut} color="inherit">

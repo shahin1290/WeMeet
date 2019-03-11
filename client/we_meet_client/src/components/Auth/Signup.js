@@ -13,7 +13,8 @@ class Signup extends Component {
     name: '',
     email: '',
     password: '',
-    password_confirmation: ''
+    password_confirmation: '',
+    headerMessage: ''
   }
 
   onChange = (e) => {
@@ -29,7 +30,14 @@ class Signup extends Component {
       password_confirmation,
       password,
     } = this.state
-    registerUser({ name, email, password_confirmation, password }) // <-<-<-<-<- here's the important part <-<-<-<-<-
+    registerUser({ name, email, password_confirmation, password }) 
+    .then(() => {
+      this.setState({ headerMessage: `You are signed in` })
+      this.props.history.push("/");
+    })
+    .catch((error) => {      
+      this.setState({ headerMessage: `That did not fly....` })
+    })
   }
 
   render() {
@@ -67,8 +75,8 @@ class Signup extends Component {
           <Button onClick={this.handleSignup} variant="contained" color="primary" size="medium">
               Submit
           </Button>
-          {/* <input type="submit"/> */}
         </form>
+        { this.state.headerMessage}
       </div>
     );
   }

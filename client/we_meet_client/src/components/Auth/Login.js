@@ -28,6 +28,7 @@ class Login extends Component {
     signInUser({ email, password })
     .then(() => {
       this.setState({ headerMessage: `You are logged in` })
+      this.props.history.push("/");
     })
     .catch((error) => {      
       this.setState({ headerMessage: `That did not fly....` })
