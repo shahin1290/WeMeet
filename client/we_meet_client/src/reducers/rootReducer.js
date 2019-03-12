@@ -11,6 +11,7 @@ import rsvpReducer from './rsvpReducer';
 import postMembershipsReducer from './postMembershipsReducer';
 import getMembershipsReducer from './getMembershipsReducer';
 import userReducer from './userReducer';
+import { reducer as formReducer } from 'redux-form'
 
 const rootReducer = combineReducers({
   reduxTokenAuth: reduxTokenAuthReducer,
@@ -24,7 +25,8 @@ const rootReducer = combineReducers({
   postRsvpNotification: rsvpReducer,
   postMembershipsNotification: postMembershipsReducer,
   groupMembers: getMembershipsReducer,
-  user: userReducer
+  user: userReducer,
+  form: formReducer
 });
 
 export default rootReducer
