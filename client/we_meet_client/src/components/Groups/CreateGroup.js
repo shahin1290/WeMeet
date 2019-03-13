@@ -6,18 +6,13 @@ import TextField from '@material-ui/core/TextField';
 import FormControl from '@material-ui/core/FormControl';
 import Select from '@material-ui/core/Select';
 import InputLabel from '@material-ui/core/InputLabel';
+import  Button  from "@material-ui/core/Button";
 
 
 class CreateGroup extends Component {
-  state = {
-    name: '',
-    description: '',
-    location: '',
-    category_id: '' 
-  }
-  
+
   componentDidMount() {
-    this.props.createGroup();
+    
   }
 
   renderError({ error, touched }){
@@ -87,16 +82,14 @@ class CreateGroup extends Component {
     this.setState({ [e.target.name]: e.target.value })
   }
 
-  createGroup = (formValues) => {
-    console.log(formValues)
-    // const group = {
-    //   name: this.state.name,
-    //   description: this.state.description,
-    //   location: this.state.location,
-    //   category_id: this.state.category_id
-    // }
-  
-    // await this.props.createGroup(group)
+  onFormSubmit = (formValues) => {
+    const group = {
+      name: formValues.name,
+      description: formValues.description,
+      location: formValues.location,
+      category_id: formValues.category_id
+    }
+    this.props.createGroup(group)
 
   }
 
@@ -109,8 +102,10 @@ class CreateGroup extends Component {
     })
 
      return (
-      <div>
-      <form onSubmit={this.props.handleSubmit(this.createGroup)} style={{ width: "25%", margin: "0 auto" }}>       
+      <div style={{ width: "40%", border: "1px solid grey", margin: "25px auto", background: "white" }}>
+      
+      <form onSubmit={this.props.handleSubmit(this.onFormSubmit)} style={{ width: "50%", margin: "0 auto" }}>       
+      <h1>Create a group</h1>
         <Field
           type="text"
           name="name"
@@ -124,14 +119,12 @@ class CreateGroup extends Component {
           component={this.renderTextarea} />   
 
         <Field
-          name="categories"
+          name="category_id"
           label="Select a Category"
           component={this.renderSelectOptions} 
         >
           <option value="" />
-          <option value={'ff0000'}>Red</option>
-          <option value={'00ff00'}>Green</option>
-          <option value={'0000ff'}>Blue</option>
+          { categoryOptions }
         </Field>  
 
         <Field
@@ -140,7 +133,7 @@ class CreateGroup extends Component {
           label="Group Location"
           component={this.renderInput} />
           
-          <button type="submit">Submit</button>
+          <Button type="submit" variant="contained" color="primary" style = {{marginBottom: "25px"}} >Submit</Button>
       </form>
       {this.props.notification}
       </div>
@@ -164,10 +157,12 @@ const mapStateToProps = (state) => {
   }
 }
 
-export default connect(mapStateToProps, { createGroup })(reduxForm({
+const formWrapped = reduxForm({
   form: 'CreateGroup',
   validate
-})(CreateGroup));
+})(CreateGroup)
+
+export default connect(mapStateToProps, { createGroup })(formWrapped);
 
 
 

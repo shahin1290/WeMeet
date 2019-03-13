@@ -2,6 +2,7 @@ import React, { Component } from 'react'
 import { connect } from 'react-redux'
 import { signOutUser } from '../../redux-token-auth-config'
 import  Button  from "@material-ui/core/Button"
+import history from "./history"
 
 class Logout extends Component {
  
@@ -10,7 +11,7 @@ class Logout extends Component {
     const { signOutUser } = this.props
     signOutUser()
     .then(() => {
-      this.props.history.push("/");
+      history.push("/");
     })
   }
 

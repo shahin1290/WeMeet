@@ -1,5 +1,5 @@
 import React, { Component } from 'react';
-import { BrowserRouter } from 'react-router-dom'
+import { Router } from 'react-router-dom'
 import { Switch, Route } from 'react-router-dom'
 import HomePage from './components/Home/Home';
 import Login from './components/Auth/Login';
@@ -11,12 +11,12 @@ import Event from './components/Events/Event';
 import CreateGroup from './components/Groups/CreateGroup';
 import CreateEvent from './components/Events/CreateEvent';
 import UserProfileView from './components/Home/UserProfileView';
-
+import history from './components/Auth/history'
 
 class App extends Component {
   render() {
     return (
-      <BrowserRouter>
+      <Router history={history}> 
         <div>
           <NavigationBar />
           <Switch>
@@ -31,7 +31,7 @@ class App extends Component {
             <Route  path='/users/:id' component={UserProfileView}></Route>
           </Switch>
         </div>
-      </BrowserRouter>
+      </Router>
     );
   }
 }
