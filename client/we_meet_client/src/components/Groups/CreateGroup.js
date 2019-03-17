@@ -10,15 +10,10 @@ import  Button  from "@material-ui/core/Button";
 
 
 class CreateGroup extends Component {
-
-  componentDidMount() {
-    
-  }
-
   renderError({ error, touched }){
     if(touched && error){
       return (
-        <div>{error}</div>
+        <div style={{ color: "red" }}>{error}</div>
       )
     }
   }
@@ -78,9 +73,6 @@ class CreateGroup extends Component {
       </FormControl>
     )
   }
-  onChange =(e) => {
-    this.setState({ [e.target.name]: e.target.value })
-  }
 
   onFormSubmit = (formValues) => {
     const group = {
@@ -107,13 +99,11 @@ class CreateGroup extends Component {
       <form onSubmit={this.props.handleSubmit(this.onFormSubmit)} style={{ width: "50%", margin: "0 auto" }}>       
       <h1>Create a group</h1>
         <Field
-          type="text"
           name="name"
           label="Group Name"
           component={this.renderInput} />
 
         <Field
-          type="textarea"
           name="description"
           label="Group Description"
           component={this.renderTextarea} />   
@@ -128,7 +118,6 @@ class CreateGroup extends Component {
         </Field>  
 
         <Field
-          type="text"
           name="location"
           label="Group Location"
           component={this.renderInput} />
@@ -145,7 +134,15 @@ const validate = formValues => {
   const errors = {}
   if(!formValues.name){
     errors.name = "You must enter the group name"
+  }
+  if(!formValues.description){
     errors.description = "You must enter a description"
+  }
+  if(!formValues.category_id){
+    errors.category_id = "You must select a category"
+  }
+  if(!formValues.location){
+    errors.location = "You must enter a location"
   }
   return errors
 }
@@ -166,4 +163,3 @@ export default connect(mapStateToProps, { createGroup })(formWrapped);
 
 
 
-  
